@@ -29,7 +29,7 @@ public class HttpClientWrapper {
 
 
     //to handle all POST Requests
-    public String doUnAuthPostRequest(String url, String json) throws IOException {
+    public String doPostRequest(String url, String json) throws IOException {
         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);
         Headers headers = new Headers.Builder().build();
         Request request = new Request.Builder()
