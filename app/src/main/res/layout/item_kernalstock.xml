@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/elevation"
+    android:layout_marginTop="@dimen/very_small_margin"
+    android:layout_marginLeft="@dimen/small_margin"
+    android:layout_marginRight="@dimen/small_margin">
+
+
+
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imagekernalstock"
+        android:src="@drawable/ic_action_user"
+        android:layout_margin="@dimen/small_margin"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="W120"
+        android:textSize="@dimen/large_textsize"
+        android:textColor="@color/black"
+        android:layout_toRightOf="@+id/imagekernalstock"
+        android:layout_margin="@dimen/small_margin"
+        android:id="@+id/grade"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="lot no - 4"
+        android:textSize="@dimen/ideal_textsize"
+        android:textColor="@color/black"
+        android:layout_toRightOf="@+id/imagekernalstock"
+        android:layout_below="@+id/grade"
+        android:drawableLeft="@drawable/ic_call_made_black_18dp"
+        android:drawablePadding="@dimen/small_padding"
+        android:gravity="center"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5 Tins"
+        android:textSize="@dimen/ideal_textsize"
+        android:textColor="@color/black"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/ideal_margin"
+        android:id="@+id/totaltins"
+        android:drawableLeft="@drawable/ic_action_tin"
+        android:gravity="center"/>
+
+</RelativeLayout>

@@ -1,29 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/toolbar_height"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
-    android:elevation="@dimen/elevation"
-    android:weightSum="1">
+    android:elevation="14dp"
+    app:titleTextColor="@color/cream"
+    app:theme="@style/ThemeOverlay.AppCompat.Dark"
+    >
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:src="@mipmap/ic_action_back"
-        android:id="@+id/backbutton"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_hamburger"
+        android:id="@+id/hamburgericon"
+        android:layout_centerVertical="true"
         />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="Name"
-        android:textSize="@dimen/extral_textsize"
+        android:textSize="@dimen/ideal_textsize"
         android:textColor="@color/white"
-        android:layout_weight="0.06"
-        android:padding="@dimen/small_padding"
-        android:gravity="center"
         android:textStyle="bold"
+        android:id="@+id/navigationtitle"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/hamburgericon"
+        android:layout_marginLeft="@dimen/ideal_margin"
         />
 
-</LinearLayout>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="02 JAN 2017"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="@dimen/ideal_textsize"
+        android:id="@+id/textdate"
+        android:layout_toStartOf="@+id/imagedate"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/very_small_margin"/>
+
+
+     <ImageView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:src="@drawable/ic_action_date"
+         android:layout_alignParentEnd="true"
+         android:layout_centerVertical="true"
+         android:id="@+id/imagedate"/>
+    </RelativeLayout>
+</android.support.v7.widget.Toolbar>
+

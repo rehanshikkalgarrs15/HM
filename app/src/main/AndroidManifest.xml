@@ -2,15 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.rehanr.hmcashew">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:windowSoftInputMode="stateVisible|adjustResize">
         <activity android:name=".Activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +20,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.LoginActivity" />
-        <activity android:name=".Activities.MainActivity"></activity>
+        <activity android:name=".Activities.MainActivity" />
+        <activity android:name=".Fragments.DealerPendingPaymentsFragment" />
+        <activity android:name=".Fragments.DealerStockFragment" />
+        <activity android:name=".Fragments.FactoryReportFragment" />
+        <activity android:name=".Fragments.KernalRatesFragment" />
+        <activity android:name=".Fragments.KernalStockFragment" />
+        <activity android:name=".Fragments.RCNStockFragment" />
+        <activity android:name=".DatePicker.DatePickerActivity"></activity>
     </application>
 
 </manifest>

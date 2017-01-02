@@ -1,0 +1,812 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/baselayout"
+    android:background="@color/colorPrimary"
+    tools:context="com.example.rehanr.hmcashew.Fragments.FactoryReportFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/toobar"/>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toobar">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <!--Employee Details-->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_white_rectangle"
+                android:elevation="@dimen/elevation"
+                android:id="@+id/employeedetails"
+                android:layout_marginLeft="@dimen/small_margin"
+                android:layout_marginRight="@dimen/small_margin"
+                android:layout_marginTop="@dimen/small_margin">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Employee"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/large_textsize"
+                    android:layout_margin="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/employee"/>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cutting"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/emp_cutting_tv"
+                    android:layout_below="@+id/employee"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="9"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:layout_marginRight="@dimen/ideal_margin"
+                    android:layout_below="@+id/employee"
+                    android:id="@+id/cuttingnumber"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Grading"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/emp_grading_tv"
+                    android:layout_below="@+id/emp_cutting_tv"
+                    android:layout_marginTop="@dimen/ideal_margin"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="6"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:layout_marginTop="@dimen/ideal_margin"
+                    android:layout_marginRight="@dimen/ideal_margin"
+                    android:layout_below="@+id/emp_cutting_tv"
+                    android:id="@+id/gradingnumber"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Staff"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/emp_staff_tv"
+                    android:layout_below="@+id/emp_grading_tv"
+                    android:layout_marginTop="@dimen/ideal_margin"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:layout_marginTop="@dimen/ideal_margin"
+                    android:layout_marginRight="@dimen/ideal_margin"
+                    android:layout_below="@+id/emp_grading_tv"
+                    android:id="@+id/staffnumber"
+                    />
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TOTAL"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/emp_total_tv"
+                    android:layout_below="@+id/emp_staff_tv"
+                    android:layout_marginTop="@dimen/ideal_margin"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="19"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:layout_marginTop="@dimen/ideal_margin"
+                    android:layout_marginRight="@dimen/ideal_margin"
+                    android:layout_below="@+id/emp_staff_tv"
+                    android:id="@+id/totalnumber"
+                    />
+
+
+
+            </RelativeLayout>
+
+
+
+            <!--Boiling  Details-->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_white_rectangle"
+                android:elevation="@dimen/elevation"
+                android:id="@+id/boilingdetails"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginLeft="@dimen/small_margin"
+                android:layout_marginRight="@dimen/small_margin">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Boiling Details"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/large_textsize"
+                    android:layout_margin="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/boiling"/>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Boiling - 2"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/boiling_tv"
+                    android:layout_below="@+id/boiling"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="600"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:layout_marginRight="@dimen/ideal_margin"
+                    android:layout_below="@+id/boiling"
+                    android:id="@+id/boilingnumber"
+                    />
+
+
+            </RelativeLayout>
+
+
+
+            <!--Cutting  Details-->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_white_rectangle"
+                android:elevation="@dimen/elevation"
+                android:id="@+id/cuttingdetails"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginLeft="@dimen/small_margin"
+                android:layout_marginRight="@dimen/small_margin">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cutting"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/large_textsize"
+                    android:layout_margin="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/cutting"/>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gar"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/gar_tv"
+                    android:layout_below="@+id/cutting"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="172.760"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:layout_marginRight="@dimen/ideal_margin"
+                    android:layout_below="@+id/cutting"
+                    android:id="@+id/garnumber"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tukda"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:layout_marginTop="@dimen/ideal_margin"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/tukda_tv"
+                    android:layout_below="@+id/gar_tv"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="13.660"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/ideal_margin"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:layout_marginRight="@dimen/ideal_margin"
+                    android:layout_below="@+id/gar_tv"
+                    android:id="@+id/tukdanumber"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:layout_marginTop="@dimen/ideal_margin"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/totalcutting_tv"
+                    android:layout_below="@+id/tukda_tv"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="176.112"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/ideal_margin"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:layout_marginRight="@dimen/ideal_margin"
+                    android:layout_below="@+id/tukda_tv"
+                    android:id="@+id/totalcuttingnumber"
+                    />
+
+
+
+
+                <!--more here-->
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/morecutting"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:visibility="gone"
+                    android:id="@+id/morecuttinglayout">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tukda %"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/tukda_percentage_tv"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2.2"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:layout_marginRight="@dimen/ideal_margin"
+                    android:id="@+id/tukdapercentnumber"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Average per Emp"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:layout_marginTop="@dimen/ideal_margin"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/average_emp__tv"
+                    android:layout_below="@+id/tukda_percentage_tv"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="13.660"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/ideal_margin"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:layout_marginRight="@dimen/ideal_margin"
+                    android:layout_below="@+id/tukdapercentnumber"
+                    android:id="@+id/average_emp_number"
+                    />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cost per KG"
+                        android:textColor="@color/textcolor"
+                        android:textSize="@dimen/ideal_textsize"
+                        android:layout_marginTop="@dimen/ideal_margin"
+                        android:layout_marginLeft="@dimen/ideal_margin"
+                        android:textStyle="bold"
+                        android:id="@+id/costperkg__tv"
+                        android:layout_below="@+id/average_emp__tv"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="11.20"
+                        android:textColor="@color/textcolor"
+                        android:textSize="@dimen/ideal_textsize"
+                        android:textStyle="bold"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/ideal_margin"
+                        android:layout_marginLeft="@dimen/ideal_margin"
+                        android:layout_marginRight="@dimen/ideal_margin"
+                        android:layout_below="@+id/average_emp__tv"
+                        android:id="@+id/costperkgnumber"
+                        />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="more"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/ideal_margin"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:layout_marginRight="@dimen/ideal_margin"
+                    android:layout_below="@+id/totalcutting_tv"
+                    android:id="@+id/morecutting"
+                    android:drawableRight="@drawable/ic_down"
+                    android:drawablePadding="@dimen/small_padding"
+                    />
+
+            </RelativeLayout>
+
+
+
+
+
+            <!--Grading  Details-->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_white_rectangle"
+                android:elevation="@dimen/elevation"
+                android:id="@+id/gradingdetails"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginLeft="@dimen/small_margin"
+                android:layout_marginRight="@dimen/small_margin">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Grading"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/large_textsize"
+                    android:layout_margin="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/grading"/>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gar"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/grading_gar_tv"
+                    android:layout_below="@+id/grading"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="172.760"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:layout_marginRight="@dimen/ideal_margin"
+                    android:layout_below="@+id/grading"
+                    android:id="@+id/gradinggarnumber"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tukda"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:layout_marginTop="@dimen/ideal_margin"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/gradingtukda_tv"
+                    android:layout_below="@+id/grading_gar_tv"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="13.660"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/ideal_margin"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:layout_marginRight="@dimen/ideal_margin"
+                    android:layout_below="@+id/grading_gar_tv"
+                    android:id="@+id/gradingtukdanumber"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:layout_marginTop="@dimen/ideal_margin"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/grading_totalcutting_tv"
+                    android:layout_below="@+id/gradingtukda_tv"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="176.112"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/ideal_margin"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:layout_marginRight="@dimen/ideal_margin"
+                    android:layout_below="@+id/gradingtukda_tv"
+                    android:id="@+id/gradingtotalcuttingnumber"
+                    />
+
+
+
+
+                <!--more here-->
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/moregrading"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:visibility="gone"
+                    android:id="@+id/moregradinglayout">
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Average per Emp"
+                        android:textColor="@color/textcolor"
+                        android:textSize="@dimen/ideal_textsize"
+                        android:layout_marginTop="@dimen/ideal_margin"
+                        android:layout_marginLeft="@dimen/ideal_margin"
+                        android:textStyle="bold"
+                        android:id="@+id/grading_average_emp__tv" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="13.660"
+                        android:textColor="@color/textcolor"
+                        android:textSize="@dimen/ideal_textsize"
+                        android:textStyle="bold"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/ideal_margin"
+                        android:layout_marginLeft="@dimen/ideal_margin"
+                        android:layout_marginRight="@dimen/ideal_margin"
+                        android:id="@+id/grading_average_emp_number"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cost per KG"
+                        android:textColor="@color/textcolor"
+                        android:textSize="@dimen/ideal_textsize"
+                        android:layout_marginTop="@dimen/ideal_margin"
+                        android:layout_marginLeft="@dimen/ideal_margin"
+                        android:textStyle="bold"
+                        android:id="@+id/grading_costperkg__tv"
+                        android:layout_below="@+id/grading_average_emp__tv"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="11.20"
+                        android:textColor="@color/textcolor"
+                        android:textSize="@dimen/ideal_textsize"
+                        android:textStyle="bold"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/ideal_margin"
+                        android:layout_marginLeft="@dimen/ideal_margin"
+                        android:layout_marginRight="@dimen/ideal_margin"
+                        android:layout_below="@+id/grading_average_emp__tv"
+                        android:id="@+id/gradingcostperkgnumber"
+                        />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="more"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/ideal_margin"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:layout_marginRight="@dimen/ideal_margin"
+                    android:layout_below="@+id/grading_totalcutting_tv"
+                    android:id="@+id/moregrading"
+                    android:drawableRight="@drawable/ic_down"
+                    android:drawablePadding="@dimen/small_padding"
+                    />
+
+            </RelativeLayout>
+
+
+
+
+            <!--PAcked Tin Details-->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_white_rectangle"
+                android:elevation="@dimen/elevation"
+                android:id="@+id/packedtindetails"
+                android:layout_marginLeft="@dimen/small_margin"
+                android:layout_marginRight="@dimen/small_margin"
+                android:layout_marginTop="@dimen/small_margin">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Packed Tins"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/large_textsize"
+                    android:layout_margin="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/packedtin"/>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Op Stock"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/opstocktv"
+                    android:layout_below="@+id/packedtin"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:layout_marginRight="@dimen/ideal_margin"
+                    android:layout_below="@+id/packedtin"
+                    android:id="@+id/opstocktvnumber"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Packed"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/new_packed_tv"
+                    android:layout_below="@+id/opstocktv"
+                    android:layout_marginTop="@dimen/ideal_margin"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="93"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:layout_marginTop="@dimen/ideal_margin"
+                    android:layout_marginRight="@dimen/ideal_margin"
+                    android:layout_below="@+id/opstocktv"
+                    android:id="@+id/newpackednumber"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sale"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/saletv"
+                    android:layout_below="@+id/new_packed_tv"
+                    android:layout_marginTop="@dimen/ideal_margin"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:layout_marginTop="@dimen/ideal_margin"
+                    android:layout_marginRight="@dimen/ideal_margin"
+                    android:layout_below="@+id/new_packed_tv"
+                    android:id="@+id/salenumber"
+                    />
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Close/Stock"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/closeorstock"
+                    android:layout_below="@+id/saletv"
+                    android:layout_marginTop="@dimen/ideal_margin"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="93"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:layout_marginTop="@dimen/ideal_margin"
+                    android:layout_marginRight="@dimen/ideal_margin"
+                    android:layout_below="@+id/saletv"
+                    android:id="@+id/closeorstocknumber"
+                    />
+
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+        </ScrollView>
+
+
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

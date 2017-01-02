@@ -46,7 +46,7 @@ public class LoginActivity extends BaseActivity {
     private void validateEntries() {
         String email = emailET.getText().toString();
         String password = passwordET.getText().toString();
-        if ((!email.contains("@") && !email.contains(".")) && !(password.length() > 6)){
+        if (!email.contains("@") || password.length() < 6){
             Toast.makeText(LoginActivity.this,"Enter Valid Details",Toast.LENGTH_LONG).show();
         }
         else{

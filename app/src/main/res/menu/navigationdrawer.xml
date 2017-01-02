@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <group android:checkableBehavior="single">
+
+
+        <item
+            android:id="@+id/factoryreport"
+            android:title="Factory Report"
+            android:icon="@drawable/ic_action_report"
+            />
+
+        <item
+            android:id="@+id/kernalstock"
+            android:title="Kernal Stock"
+            android:icon="@drawable/ic_action_stock"
+            />
+
+
+        <item
+            android:id="@+id/kernalrates"
+            android:title="Kernal Rates"
+            android:icon="@drawable/ic_action_price"
+            />
+
+        <item
+            android:id="@+id/rcnstock"
+            android:title="RCN Stock"
+            android:icon="@drawable/ic_action_rcnstock"
+            />
+
+    </group>
+
+    <group android:checkableBehavior="single"
+        android:menuCategory="secondary"
+        android:id="@+id/secondary"
+        >
+        <item
+            android:title="Dealer Stock"
+            android:id="@+id/deakerstock"
+            android:icon="@drawable/ic_action_dealerstock"
+            />
+
+
+        <item
+            android:title="Dealer Pending Payments"
+            android:id="@+id/dealerpendingpayments"
+            android:icon="@drawable/ic_action_pendingpayment"
+            >
+        </item>
+    </group>
+
+
+
+
+
+</menu>

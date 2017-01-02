@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.rehanr.hmcashew.Preferences.LoginPreferences;
 import com.example.rehanr.hmcashew.R;
@@ -34,6 +35,7 @@ public class SplashActivity extends BaseActivity {
             public void onFinish() {
                 //checking if user is already loggedIn
                 //if loggedIn Open MainActivity else Open LoginActivity
+                Log.e("Is_Logged_in",String.valueOf(loginPreferences.isLoggedIn()));
                 if (loginPreferences.isLoggedIn()){
                     openMainActivity();
                 }
