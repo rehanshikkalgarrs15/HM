@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
+    android:elevation="14dp"
+    app:theme="@style/ThemeOverlay.AppCompat.Dark"
+    >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kernal Stock"
+            android:textSize="@dimen/ideal_textsize"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:id="@+id/navigationtitle"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/hamburgericon"
+            android:layout_marginLeft="@dimen/ideal_margin"
+            />
+
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="02 JAN 2017"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="@dimen/ideal_textsize"
+            android:id="@+id/textdate"
+            android:layout_toStartOf="@+id/imagedate"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/very_small_margin"/>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_date"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/imagedate"/>
+    </RelativeLayout>
+
+</android.support.v7.widget.Toolbar>
