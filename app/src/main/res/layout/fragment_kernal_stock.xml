@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/baselayout"
+    android:background="@color/colorPrimary"
     tools:context="com.example.rehanr.hmcashew.Fragments.KernalStockFragment">
 
     <include
@@ -16,6 +17,8 @@
         android:layout_below="@+id/toobar"
         android:scrollbars="vertical"
         android:id="@+id/recyclerview"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="@dimen/small_margin"
         >
 
     </android.support.v7.widget.RecyclerView>
@@ -74,6 +77,55 @@
 
     </RelativeLayout>
 
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:orientation="horizontal"
+        android:background="@color/textcolor"
+        android:layout_marginLeft="@dimen/small_margin"
+        android:layout_marginRight="@dimen/small_margin"
+        android:id="@+id/totalkernalstocktinslayout">
+
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imagekernalstock"
+            android:src="@drawable/ic_action_user"
+            android:layout_marginLeft="@dimen/small_margin"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TOTAL"
+            android:layout_weight="1"
+            android:textColor="@color/cream"
+            android:textSize="@dimen/large_textsize"
+            android:textStyle="bold"
+            android:layout_marginLeft="@dimen/ideal_margin"
+            android:layout_toRightOf="@+id/imagekernalstock"
+            android:layout_centerVertical="true"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="24 Tins"
+            android:layout_weight="1"
+            android:textColor="@color/cream"
+            android:textSize="@dimen/ideal_textsize"
+            android:layout_marginRight="@dimen/ideal_margin"
+            android:id="@+id/totalkernalstocktins"
+            android:gravity="end|center"
+            android:drawableRight="@drawable/ic_action_tin"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
 
 
 

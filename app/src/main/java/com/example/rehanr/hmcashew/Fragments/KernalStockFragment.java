@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -35,10 +36,10 @@ import java.util.List;
  */
 public class KernalStockFragment extends BaseActivity implements DatePickerDialog.OnDateSetListener{
 
-    TextView navigationItemNameTV,dateTV;
+    TextView navigationItemNameTV,dateTV,totalTinsTV;
     ImageView dateIV;
     Toolbar toolbar;
-    RelativeLayout progressLayoutRL,poorConnectionLayoutRL;
+    RelativeLayout progressLayoutRL,poorConnectionLayoutRL, totaltinsLayoutLL;
 
     private List<TinStock> tinStockList = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -64,8 +65,10 @@ public class KernalStockFragment extends BaseActivity implements DatePickerDialo
         navigationItemNameTV = (TextView)findViewById(R.id.navigationtitle);
         progressLayoutRL = (RelativeLayout)findViewById(R.id.progresslayout);
         poorConnectionLayoutRL = (RelativeLayout)findViewById(R.id.retrylayout);
+        totaltinsLayoutLL = (RelativeLayout) findViewById(R.id.totalkernalstocktinslayout);
         dateTV = (TextView)findViewById(R.id.textdate);
         dateIV = (ImageView)findViewById(R.id.imagedate);
+        totalTinsTV = (TextView)findViewById(R.id.totalkernalstocktins);
 
         //display the backbutton on toolbar
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -138,7 +141,7 @@ public class KernalStockFragment extends BaseActivity implements DatePickerDialo
                 protected void onPreExecute() {
                     super.onPreExecute();
                     progressLayoutRL.setVisibility(View.VISIBLE);
-
+                    recyclerView.setVisibility(View.GONE);
                     //change date in toolbar
                     SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-DD");
                     SimpleDateFormat format2 = new SimpleDateFormat("dd-MMMM-yyyy");
@@ -163,7 +166,6 @@ public class KernalStockFragment extends BaseActivity implements DatePickerDialo
                 protected void onPostExecute(List<TinStock> list) {
                     super.onPostExecute(list);
                     progressLayoutRL.setVisibility(View.GONE);
-                    recyclerView.setVisibility(View.GONE);
                     Log.e("list",list.toString());
                     mAdapter = new KernalStockAdapter(list,KernalStockFragment.this);
                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(KernalStockFragment.this.getApplicationContext(),LinearLayoutManager.VERTICAL,false);
@@ -175,10 +177,20 @@ public class KernalStockFragment extends BaseActivity implements DatePickerDialo
                     if (list.size() == 0){
                         recyclerView.setVisibility(View.GONE);
                         poorConnectionLayoutRL.setVisibility(View.VISIBLE);
+                        totaltinsLayoutLL.setVisibility(View.GONE);
                     }
                     else{
                         recyclerView.setVisibility(View.VISIBLE);
                         poorConnectionLayoutRL.setVisibility(View.GONE);
+                        totaltinsLayoutLL.setVisibility(View.VISIBLE);
+
+                        //total all tins
+                        int totalTins = 0;
+                        for (TinStock stockList : list){
+                            totalTins+=stockList.getTins();
+                        }
+                        totalTinsTV.setText(String.valueOf(totalTins)+" Tins");
+
                     }
                 }
             }.execute();
