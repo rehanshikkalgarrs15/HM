@@ -8,4 +8,5 @@ public class Urls {
     public static final String BASEURL = "http://techifyindia.com/";
     public static final String LOGINURL = "backend/userLogin.php";
     public static final String KERNALSTOCK = "backend/kernalstock.php";
+    public static final String FACTORYREPORT = "backend/factoryreport.php";
 }

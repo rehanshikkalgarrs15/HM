@@ -81,7 +81,7 @@ public class KernalStockFragment extends BaseActivity implements DatePickerDialo
         Month = calendar.get(Calendar.MONTH);
         Day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        dateIV.setOnClickListener(new View.OnClickListener() {
+        dateTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 KernalStockOnDateChange();

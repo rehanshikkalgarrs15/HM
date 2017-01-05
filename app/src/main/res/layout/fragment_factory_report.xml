@@ -26,6 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:visibility="visible"
+            android:id="@+id/factoryreportlayout"
             >
 
             <!--Employee Details-->
@@ -44,7 +46,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Employee"
+                    android:text="Employee Details"
                     android:textColor="@color/black"
                     android:textSize="@dimen/large_textsize"
                     android:layout_margin="@dimen/ideal_margin"
@@ -200,7 +202,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Boiling - 2"
+                    android:text="Boiling"
                     android:textColor="@color/textcolor"
                     android:textSize="@dimen/ideal_textsize"
                     android:layout_marginLeft="@dimen/ideal_margin"
@@ -244,7 +246,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Cutting"
+                    android:text="Cutting Details"
                     android:textColor="@color/black"
                     android:textSize="@dimen/large_textsize"
                     android:layout_margin="@dimen/ideal_margin"
@@ -311,7 +313,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total"
+                    android:text="TOTAL"
                     android:textColor="@color/black"
                     android:textSize="@dimen/ideal_textsize"
                     android:layout_marginTop="@dimen/ideal_margin"
@@ -471,7 +473,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Grading"
+                    android:text="Grading Details"
                     android:textColor="@color/black"
                     android:textSize="@dimen/large_textsize"
                     android:layout_margin="@dimen/ideal_margin"
@@ -538,7 +540,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total"
+                    android:text="TOTAL"
                     android:textColor="@color/black"
                     android:textSize="@dimen/ideal_textsize"
                     android:layout_marginTop="@dimen/ideal_margin"
@@ -673,7 +675,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Packed Tins"
+                    android:text="Packed Tins Details"
                     android:textColor="@color/black"
                     android:textSize="@dimen/large_textsize"
                     android:layout_margin="@dimen/ideal_margin"
@@ -800,10 +802,115 @@
             </RelativeLayout>
 
 
+            <!--RCN stock details-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_white_rectangle"
+                android:elevation="@dimen/elevation"
+                android:id="@+id/rcnstockdetails"
+                android:layout_marginLeft="@dimen/small_margin"
+                android:layout_marginRight="@dimen/small_margin"
+                android:layout_marginTop="@dimen/small_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="RCN Stock Details"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/large_textsize"
+                    android:layout_margin="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/rcnstocktitle"/>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Raw Cashew"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:textStyle="bold"
+                    android:id="@+id/rcnrawcashew"
+                    android:layout_below="@+id/rcnstocktitle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10000"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/ideal_textsize"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="@dimen/ideal_margin"
+                    android:layout_marginRight="@dimen/ideal_margin"
+                    android:layout_below="@+id/rcnstocktitle"
+                    android:id="@+id/rcnrawcashewnumber"
+                    />
+
+            </RelativeLayout>
+
+
         </LinearLayout>
+
+
         </ScrollView>
 
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/factoryreportprogresslayout"
+            android:visibility="gone">
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:color="@color/colorAccent"
+                android:id="@+id/progressbar"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Loading Factory Report..."
+                android:textColor="@color/colorAccent"
+                android:layout_below="@+id/progressbar"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/factoryreportretrylayout"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Data on Selected Date or retry to load Data"
+                android:textColor="@color/colorAccent"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/poorconnection"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_retry"
+                android:layout_below="@+id/poorconnection"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/small_margin"/>
+
+        </RelativeLayout>
 
 
     </RelativeLayout>

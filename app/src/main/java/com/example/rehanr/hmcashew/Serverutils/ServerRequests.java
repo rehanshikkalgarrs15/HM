@@ -56,4 +56,18 @@ public class ServerRequests {
     }
 
 
+    public JSONObject loadFactoryReport(String selectedDate) {
+        JSONObject request = new JSONObject();
+        JSONObject responseobject = null;
+        try{
+            request.put("date",selectedDate);
+            Log.e("<----REQUEST---->",request.toString());
+            String response = clientWrapper.doPostRequest(Urls.BASEURL + Urls.FACTORYREPORT,request.toString());
+            responseobject = new JSONObject(response);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return responseobject;
+    }
 }
