@@ -23,8 +23,8 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/navigationheader"
         app:menu="@menu/navigationdrawer"
-        app:itemTextColor="@color/black"
-        app:itemIconTint="@color/black"
+        app:itemTextColor="@xml/drawer_item"
+        app:itemIconTint="@xml/drawer_item"
         android:background="@color/cream"
         android:id="@+id/navigation_drawer">
 

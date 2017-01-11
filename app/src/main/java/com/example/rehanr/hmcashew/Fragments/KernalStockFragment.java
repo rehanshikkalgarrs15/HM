@@ -50,6 +50,7 @@ public class KernalStockFragment extends BaseActivity implements DatePickerDialo
     Calendar calendar ;
     DatePickerDialog datePickerDialog ;
     int Year, Month, Day ;
+    String selectedDATE = "";
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -98,6 +99,16 @@ public class KernalStockFragment extends BaseActivity implements DatePickerDialo
             }
         });
 
+
+        //on retry clicked
+        poorConnectionLayoutRL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadKernalStock(selectedDATE);
+            }
+        });
+
+
         //by default load todays Kernal stock
         loadTodaysKernalStock();
     }
@@ -109,6 +120,7 @@ public class KernalStockFragment extends BaseActivity implements DatePickerDialo
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String todaysDate = df.format(c.getTime());
         Log.e("Todays Date",todaysDate);
+        selectedDATE = todaysDate;
         loadKernalStock(todaysDate);
     }
 
@@ -126,6 +138,7 @@ public class KernalStockFragment extends BaseActivity implements DatePickerDialo
 
                         Log.e("selected date",dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                         String selectedDate = year+"-"+(monthOfYear+1)+"-"+dayOfMonth;
+                        selectedDATE = selectedDate;
                         loadKernalStock(selectedDate);
                     }
                 }, Year, Month, Day);
@@ -141,6 +154,7 @@ public class KernalStockFragment extends BaseActivity implements DatePickerDialo
                 protected void onPreExecute() {
                     super.onPreExecute();
                     progressLayoutRL.setVisibility(View.VISIBLE);
+                    poorConnectionLayoutRL.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.GONE);
                     //change date in toolbar
                     SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-DD");

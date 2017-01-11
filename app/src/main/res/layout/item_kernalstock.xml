@@ -17,17 +17,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imagekernalstock"
-        android:src="@drawable/ic_action_user"
+        android:src="@drawable/ic_action_cashewgreen"
         android:layout_margin="@dimen/small_margin"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="W120"
-        android:textSize="@dimen/large_textsize"
+        android:textSize="@dimen/ideal_textsize"
         android:textColor="@color/black"
-        android:textStyle="bold"
+        android:textStyle="normal"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/imagekernalstock"
         android:layout_margin="@dimen/small_margin"
@@ -41,13 +42,13 @@
         android:layout_height="wrap_content"
         android:text="5 Tins"
         android:textSize="@dimen/ideal_textsize"
-        android:textColor="@color/black"
+        android:textColor="@color/newcolor"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/ideal_margin"
         android:id="@+id/totaltins"
-        android:drawableRight="@drawable/ic_action_tin"
+        android:drawableRight="@drawable/ic_action_tingreen"
         android:gravity="center"/>
 
 

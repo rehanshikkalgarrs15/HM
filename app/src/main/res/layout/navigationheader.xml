@@ -4,13 +4,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:background="@color/colorPrimary">
+    android:background="@color/newcolor">
 
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_action_user"
+        android:src="@drawable/ic_action_newuser"
         android:id="@+id/userimage"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
@@ -25,7 +25,8 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/userimage"
         android:layout_marginLeft="@dimen/ideal_margin"
-        android:id="@+id/useremail"/>
+        android:id="@+id/useremail"
+        android:textSize="@dimen/small_textsize"/>
 
 
 </RelativeLayout>

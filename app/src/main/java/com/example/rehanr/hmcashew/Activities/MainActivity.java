@@ -50,6 +50,7 @@ public class MainActivity extends BaseActivity {
     Calendar calendar ;
     DatePickerDialog datePickerDialog ;
     int Year, Month, Day ;
+    String selectedDATE = "";
 
 
     //factory report layout details
@@ -186,6 +187,14 @@ public class MainActivity extends BaseActivity {
         });
 
 
+        //on retry clicked
+        nodataLayoutRL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFactoryReport(selectedDATE);
+            }
+        });
+
         //handling more cutting onclick listener
         moreCuttingTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -236,6 +245,7 @@ public class MainActivity extends BaseActivity {
 
                         Log.e("selected date",dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                         String selectedDate = year+"-"+(monthOfYear+1)+"-"+dayOfMonth;
+                        selectedDATE = selectedDate;
                         loadFactoryReport(selectedDate);
                     }
                 }, Year, Month, Day);
@@ -249,6 +259,7 @@ public class MainActivity extends BaseActivity {
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String todaysDate = df.format(c.getTime());
+        selectedDATE = todaysDate;
         Log.e("Todays Date",todaysDate);
         loadFactoryReport(todaysDate);
     }
