@@ -1,6 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/elevation"
+    android:background="@drawable/background_white_rectangle"
+    android:layout_margin="@dimen/very_small_margin"
+    android:paddingLeft="@dimen/ideal_padding"
+    android:paddingRight="@dimen/ideal_padding"
+    android:paddingBottom="@dimen/ideal_padding">
 
-</LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="W120"
+        android:textSize="@dimen/large_textsize"
+        android:drawableLeft="@drawable/ic_action_cashewgreen"
+        android:gravity="center"
+        android:layout_margin="@dimen/small_margin"
+        android:textStyle="bold"
+        android:id="@+id/gradename"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/date1tag"
+        android:text="12 January 2017"
+        android:layout_below="@+id/gradename"
+        android:layout_marginLeft="@dimen/ideal_margin"
+        android:textSize="@dimen/ideal_textsize"
+        android:textColor="@color/textcolor"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rate1"
+        android:text="Rs. 1200"
+        android:layout_marginLeft="@dimen/ideal_margin"
+        android:layout_marginRight="@dimen/ideal_margin"
+        android:textSize="@dimen/ideal_textsize"
+        android:gravity="right|center"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/gradename"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/newcolor"/>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/date2tag"
+        android:text="13 January 2017"
+        android:layout_below="@+id/date1tag"
+        android:layout_marginLeft="@dimen/ideal_margin"
+        android:layout_marginTop="@dimen/ideal_margin"
+        android:textSize="@dimen/ideal_textsize"
+        android:textColor="@color/textcolor"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rate2"
+        android:text="Rs. 1500"
+        android:layout_marginLeft="@dimen/ideal_margin"
+        android:layout_marginRight="@dimen/ideal_margin"
+        android:layout_marginTop="@dimen/ideal_margin"
+        android:textSize="@dimen/ideal_textsize"
+        android:gravity="right|center"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/date1tag"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/newcolor"/>
+
+
+
+</RelativeLayout>

@@ -236,7 +236,7 @@ public class MainActivity extends BaseActivity {
 
     private void datePicker() {
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,R.style.DialogTheme,
                 new DatePickerDialog.OnDateSetListener() {
 
                     @Override

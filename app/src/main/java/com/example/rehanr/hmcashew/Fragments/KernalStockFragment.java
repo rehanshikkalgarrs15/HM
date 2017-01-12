@@ -129,7 +129,7 @@ public class KernalStockFragment extends BaseActivity implements DatePickerDialo
     private void KernalStockOnDateChange() {
 
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,R.style.DialogTheme,
                 new DatePickerDialog.OnDateSetListener() {
 
                     @Override

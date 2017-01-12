@@ -1,14 +1,82 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/baselayout"
-    tools:context="com.example.rehanr.hmcashew.Fragments.KernalRatesFragment">
+    tools:context="com.example.rehanr.hmcashew.Fragments.KernalRatesFragment"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
 
     <include
         layout="@layout/activity_toolbar"
         android:id="@+id/toobar"/>
 
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toobar"
+        android:scrollbars="vertical"
+        android:id="@+id/recyclerview"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="@dimen/small_margin"
+        >
+
+    </android.support.v7.widget.RecyclerView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/progresslayout"
+        android:visibility="gone">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:color="@color/colorAccent"
+            android:id="@+id/progressbar"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
 
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loading Kernal Rates..."
+            android:textColor="@color/colorAccent"
+            android:layout_below="@+id/progressbar"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/retrylayout"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Something went wrong!!"
+            android:textColor="@color/colorAccent"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/poorconnection"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_retry"
+            android:layout_below="@+id/poorconnection"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/small_margin"/>
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

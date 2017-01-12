@@ -1,8 +1,12 @@
 package com.example.rehanr.hmcashew.Serverutils;
 
+import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 
+import com.example.rehanr.hmcashew.Models.KernalRates;
 import com.example.rehanr.hmcashew.Models.TinStock;
+import com.example.rehanr.hmcashew.Parsers.KernalRatesParser;
 import com.example.rehanr.hmcashew.Parsers.KernalStockParser;
 
 import org.json.JSONObject;
@@ -46,8 +50,10 @@ public class ServerRequests {
             Log.e("<----REQUEST---->",request.toString());
             String response = clientWrapper.doPostRequest(Urls.BASEURL + Urls.KERNALSTOCK,request.toString());
             responseObject = new JSONObject(response);
-            if (responseObject.getString("status").equals("success")){
-                tinStockList = new KernalStockParser().parse(responseObject.getJSONArray("result"));
+            if (responseObject != null) {
+                if (responseObject.getString("status").equals("success")) {
+                    tinStockList = new KernalStockParser().parse(responseObject.getJSONArray("result"));
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,5 +75,23 @@ public class ServerRequests {
             e.printStackTrace();
         }
         return responseobject;
+    }
+
+    public List<KernalRates> loadKernalRates(Context context) {
+        List<KernalRates> kernalRates  = new ArrayList<>();
+        JSONObject responseObject = null;
+        try {
+            String response = clientWrapper.doGetRequest(context, Urls.BASEURL + Urls.KERNALRATES);
+            responseObject = new JSONObject(response);
+            if (responseObject != null) {
+                if (responseObject.getString("status").equals("success")) {
+                    kernalRates = new KernalRatesParser().parse(responseObject.getJSONArray("result"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return kernalRates;
     }
 }

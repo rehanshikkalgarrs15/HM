@@ -4,8 +4,6 @@
 
 
     <group android:checkableBehavior="single">
-
-
         <item
             android:id="@+id/factoryreport"
             android:title="Factory Report"
@@ -16,6 +14,7 @@
             android:id="@+id/kernalstock"
             android:title="Kernal Stock"
             android:icon="@drawable/ic_action_stock"
+            app:actionLayout="@layout/navigation_item_highlight"
             />
 
 
@@ -23,6 +22,7 @@
             android:id="@+id/kernalrates"
             android:title="Kernal Rates"
             android:icon="@drawable/ic_action_price"
+            app:actionLayout="@layout/navigation_item_highlight"
             />
 
         <item
@@ -30,27 +30,30 @@
             android:title="RCN Stock"
             android:icon="@drawable/ic_action_rcnstock"
             />
-
     </group>
 
-    <group android:checkableBehavior="single"
-        android:menuCategory="secondary"
-        android:id="@+id/secondary"
-        >
-        <item
-            android:title="Dealer Stock"
-            android:id="@+id/deakerstock"
-            android:icon="@drawable/ic_action_dealerstock"
-            />
+
+    <item android:title="Dealer">
+
+        <menu>
+
+            <group android:checkableBehavior="single">
+                    <item
+                    android:title="Dealer Stock"
+                    android:id="@+id/deakerstock"
+                    android:icon="@drawable/ic_action_dealerstock"
+                    />
 
 
-        <item
-            android:title="Dealer Pending Payments"
-            android:id="@+id/dealerpendingpayments"
-            android:icon="@drawable/ic_action_pendingpayment"
-            >
-        </item>
-    </group>
+                    <item
+                        android:title="Dealer Pending Payments"
+                        android:id="@+id/dealerpendingpayments"
+                        android:icon="@drawable/ic_action_pendingpayment"
+                        >
+                     </item>
+            </group>
+        </menu>
+    </item>
 
 
 
