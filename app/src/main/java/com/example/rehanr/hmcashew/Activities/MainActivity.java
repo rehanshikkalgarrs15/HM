@@ -1,12 +1,17 @@
 package com.example.rehanr.hmcashew.Activities;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -16,26 +21,33 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.rehanr.hmcashew.Adapters.KernalStockAdapter;
+import com.example.rehanr.hmcashew.Database.FactoryReportDBHandler;
 import com.example.rehanr.hmcashew.Fragments.DealerPendingPaymentsFragment;
 import com.example.rehanr.hmcashew.Fragments.DealerStockFragment;
 import com.example.rehanr.hmcashew.Fragments.KernalRatesFragment;
 import com.example.rehanr.hmcashew.Fragments.KernalStockFragment;
 import com.example.rehanr.hmcashew.Fragments.RCNStockFragment;
 import com.example.rehanr.hmcashew.Models.FactoryReport;
+import com.example.rehanr.hmcashew.Models.TinStock;
 import com.example.rehanr.hmcashew.Models.User;
 import com.example.rehanr.hmcashew.Parsers.FactoryReportParser;
 import com.example.rehanr.hmcashew.Preferences.LoginPreferences;
 import com.example.rehanr.hmcashew.R;
 import com.example.rehanr.hmcashew.Serverutils.ServerRequests;
+import com.example.rehanr.hmcashew.Utils.NetworkUtils;
 
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
@@ -63,6 +75,7 @@ public class MainActivity extends BaseActivity {
     LinearLayout factoryReportLayoutLL;
     RelativeLayout loadingLayoutRL,nodataLayoutRL;
 
+    FactoryReportDBHandler databaseHandler = new FactoryReportDBHandler(MainActivity.this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,8 +150,8 @@ public class MainActivity extends BaseActivity {
         init(view);
 
         //Default load Factory Report data of todays date
-        loadTodaysFactoryReport();
-
+        //loadTodaysFactoryReport();
+        checkInternetConnectionAndLoadData("",0);
 
         //handling navigation item click listener
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -234,6 +247,50 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    private void checkInternetConnectionAndLoadData(String date, int code) {
+        /*check the internet connection
+         * if NOT CONNECTED then load stored data
+         * else load fetched data
+         */
+        factoryReportLayoutLL.setVisibility(View.GONE);
+        nodataLayoutRL.setVisibility(View.GONE);
+        loadingLayoutRL.setVisibility(View.GONE);
+        if (!NetworkUtils.isConnected(MainActivity.this)){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("No Internet Connection");
+            builder.setMessage("Loading Previous Data!!")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //handling ok button on click
+                            if (databaseHandler.getFactoryReportCount() <= 0){
+                                factoryReportLayoutLL.setVisibility(View.GONE);
+                                nodataLayoutRL.setVisibility(View.GONE);
+                                loadingLayoutRL.setVisibility(View.GONE);
+                                Toast.makeText(MainActivity.this,"No Data was Stored..",Toast.LENGTH_LONG).show();
+                            }
+                            else {
+                                factoryReportLayoutLL.setVisibility(View.VISIBLE);
+                                FactoryReport factoryReport = databaseHandler.getFactoryReport();
+                                displayDataOnLayout(factoryReport);
+                                String laststoreddate = databaseHandler.getLastStoredDate();
+                                dateTextTV.setText("Factory Report As on\n\t\t" + changeDateFormat(laststoreddate));
+                            }
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+        else if (code  == 0){
+            //by default load todays Kernal stock
+            loadTodaysFactoryReport();
+        }
+        else if (code  == 1){
+            //load on date changed
+            loadFactoryReport(date);
+        }
+    }
+
     private void datePicker() {
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,R.style.DialogTheme,
@@ -246,7 +303,7 @@ public class MainActivity extends BaseActivity {
                         Log.e("selected date",dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                         String selectedDate = year+"-"+(monthOfYear+1)+"-"+dayOfMonth;
                         selectedDATE = selectedDate;
-                        loadFactoryReport(selectedDate);
+                        checkInternetConnectionAndLoadData(selectedDATE,1);
                     }
                 }, Year, Month, Day);
         datePickerDialog.show();
@@ -281,7 +338,6 @@ public class MainActivity extends BaseActivity {
                 try {
                     date = format1.parse(selectedDate);
                 } catch (ParseException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 String dateString = format2.format(date);
@@ -301,6 +357,15 @@ public class MainActivity extends BaseActivity {
                     if (response != null) {
                         if (response.getString("status").equals("success")){
                             FactoryReport factoryReport = new  FactoryReportParser().parse(response.getJSONObject("factoryreport"));
+
+                            String lastfetcheddate = response.getString("date");
+                            //first clear previous data
+                            //add new data
+                            databaseHandler.ClearAll();
+                            databaseHandler.addFactoryReport(factoryReport);
+                            databaseHandler.addLastStoredDate(lastfetcheddate);
+                            Log.e("FR - Last fetched Date" , lastfetcheddate);
+
                             factoryReportLayoutLL.setVisibility(View.VISIBLE);
                             nodataLayoutRL.setVisibility(View.GONE);
                             loadingLayoutRL.setVisibility(View.GONE);
@@ -373,7 +438,19 @@ public class MainActivity extends BaseActivity {
     }
 
 
-
+    public String changeDateFormat(String selectedDate){
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-DD");
+        SimpleDateFormat format2 = new SimpleDateFormat("dd-MMMM-yyyy");
+        Date date = null;
+        try {
+            date = format1.parse(selectedDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String dateString = format2.format(date);
+        dateString = dateString.replace("-", " ");
+        return dateString;
+    }
 
 
 }

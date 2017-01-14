@@ -32,6 +32,11 @@ public class FactoryReport {
         this.rcnRawCashew = rcnRawCashew;
     }
 
+
+    //default constructor
+    public FactoryReport(){
+
+    }
     public String getEmployeeCutting() {
         return employeeCutting;
     }
