@@ -41,8 +41,7 @@ public class ServerRequests {
 
     }
 
-    public List<TinStock> loadKernalStock(String selectedDate) {
-        List<TinStock> tinStockList = new ArrayList<>();
+    public JSONObject loadKernalStock(String selectedDate) {
         JSONObject request = new JSONObject();
         JSONObject responseObject = null;
         try {
@@ -50,15 +49,11 @@ public class ServerRequests {
             Log.e("<----REQUEST---->",request.toString());
             String response = clientWrapper.doPostRequest(Urls.BASEURL + Urls.KERNALSTOCK,request.toString());
             responseObject = new JSONObject(response);
-            if (responseObject != null) {
-                if (responseObject.getString("status").equals("success")) {
-                    tinStockList = new KernalStockParser().parse(responseObject.getJSONArray("result"));
-                }
-            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return tinStockList;
+        return responseObject;
     }
 
 

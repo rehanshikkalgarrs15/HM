@@ -25,6 +25,10 @@ public class TinStock {
         this.tins = tins;
     }
 
+    //default constructor
+    public TinStock() {
+    }
+
     public int getStockId() {
         return stockId;
     }
