@@ -23,7 +23,6 @@
             android:id="@+id/navigationtitle"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/hamburgericon"
-            android:layout_marginLeft="@dimen/ideal_margin"
             />
 
 

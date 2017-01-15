@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:elevation="8dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginLeft="@dimen/small_margin"
+    android:layout_marginRight="@dimen/small_margin"
+    android:background="@color/cream">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ARB"
+        android:textSize="@dimen/ideal_textsize"
+        android:textColor="@color/black"
+        android:textStyle="normal"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/small_margin"
+        android:drawableLeft="@drawable/ic_action_person"
+        android:gravity="center"
+        android:drawablePadding="@dimen/ideal_padding"
+        android:id="@+id/dealername"/>
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="150000"
+        android:textSize="@dimen/ideal_textsize"
+        android:textColor="@color/newcolor"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/small_margin"
+        android:id="@+id/pendingamount"
+        android:gravity="center"
+        android:drawableRight="@drawable/ic_action_rupeegreen"
+        android:drawablePadding="@dimen/small_padding"/>
+
+
+</RelativeLayout>

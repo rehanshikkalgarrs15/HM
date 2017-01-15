@@ -16,6 +16,9 @@ public class KernalRates {
         this.rate2 = rate2;
     }
 
+    //default constructor
+    public KernalRates(){}
+
     public String getGradeName() {
         return gradeName;
     }

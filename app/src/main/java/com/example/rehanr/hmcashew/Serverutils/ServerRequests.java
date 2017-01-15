@@ -89,4 +89,34 @@ public class ServerRequests {
 
         return kernalRates;
     }
+
+    public JSONObject loadDealerPendingPayments(String selectedDATE) {
+
+        JSONObject request = new JSONObject();
+        JSONObject responseObject = null;
+        try {
+            request.put("date",selectedDATE);
+            Log.e("<----REQUEST---->",request.toString());
+            String response = clientWrapper.doPostRequest(Urls.BASEURL + Urls.ALLDEALERPENDINGPAYMENTS,request.toString());
+            responseObject = new JSONObject(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return responseObject;
+    }
+
+    public JSONObject loadPendingPaymentOfParticularDealer(String dealername, String date) {
+        JSONObject request = new JSONObject();
+        JSONObject responseObject = null;
+        try {
+            request.put("date",date);
+            request.put("dealername",dealername);
+            Log.e("<----REQUEST---->",request.toString());
+            String response = clientWrapper.doPostRequest(Urls.BASEURL + Urls.DEALERPENDINGPAYMENT,request.toString());
+            responseObject = new JSONObject(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return responseObject;
+    }
 }

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:elevation="8dp"
+    android:layout_marginTop="@dimen/small_margin"
+    android:layout_marginLeft="@dimen/small_margin"
+    android:layout_marginRight="@dimen/small_margin"
+    android:background="@color/cream"
+    android:id="@+id/itemlayout">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dealer Name - Gawde"
+        android:textColor="@color/newcolor"
+        android:textSize="@dimen/ideal_textsize"
+        android:id="@+id/dealername"
+        android:layout_margin="@dimen/small_margin"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/dealername"
+        android:id="@+id/billnolayout"
+        android:layout_marginLeft="@dimen/small_margin"
+        android:background="@drawable/customborder">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bill - No"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/small_margin"
+            android:textSize="@dimen/ideal_textsize"
+            android:id="@+id/billnotag"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="24"
+            android:layout_gravity="center"
+            android:textSize="@dimen/small_textsize"
+            android:textColor="@color/newcolor"
+            android:id="@+id/billno"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/dealername"
+        android:id="@+id/billdatelayout"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/small_margin"
+        android:background="@drawable/customborder">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bill Date"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/small_margin"
+            android:textSize="@dimen/ideal_textsize"
+            android:id="@+id/billdatetag"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2 Jan 2017"
+            android:layout_gravity="center"
+            android:textSize="@dimen/small_textsize"
+            android:textColor="@color/newcolor"
+            android:id="@+id/billdate"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/billnolayout"
+        android:id="@+id/totalqtylayout"
+        android:layout_marginTop="@dimen/small_margin"
+        android:background="@drawable/customborder"
+        android:layout_marginLeft="@dimen/small_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quantiy"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/small_margin"
+            android:textSize="@dimen/ideal_textsize"
+            android:id="@+id/quantitytag"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="35"
+            android:layout_gravity="center"
+            android:textSize="@dimen/small_textsize"
+            android:textColor="@color/newcolor"
+            android:id="@+id/totalquantity"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/billnolayout"
+        android:id="@+id/ppdatelayout"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/small_margin"
+        android:background="@drawable/customborder"
+        android:layout_marginRight="@dimen/small_margin"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PP Date"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/small_margin"
+            android:textSize="@dimen/ideal_textsize"
+            android:id="@+id/ppdatetag"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="7 Jan 2017"
+            android:layout_gravity="center"
+            android:textSize="@dimen/small_textsize"
+            android:textColor="@color/newcolor"
+            android:id="@+id/ppdate" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/paymentlayout"
+        android:layout_below="@+id/totalqtylayout"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginLeft="@dimen/small_margin">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total Amount"
+                android:textSize="@dimen/ideal_textsize"
+                android:padding="@dimen/small_padding"
+                android:id="@+id/totalamounttag"
+                android:layout_centerVertical="true"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="150000"
+                android:gravity="right|center_vertical"
+                android:textSize="@dimen/small_textsize"
+                android:textColor="@color/newcolor"
+                android:id="@+id/totalamount"
+                android:drawableRight="@drawable/ic_action_rupeegreen"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginLeft="@dimen/small_margin" >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total  Paid"
+                android:textSize="@dimen/ideal_textsize"
+                android:layout_weight="1"
+                android:padding="@dimen/small_padding"
+                android:id="@+id/totalpaidtag"
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="20000"
+                android:textSize="@dimen/small_textsize"
+                android:gravity="right|center"
+                android:layout_weight="1"
+                android:textColor="@color/newcolor"
+                android:id="@+id/totalpaid"
+                android:drawableRight="@drawable/ic_action_rupeegreen"
+
+                />
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginLeft="@dimen/small_margin"  >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pending Amount"
+                android:textSize="@dimen/ideal_textsize"
+                android:layout_weight="1"
+                android:padding="@dimen/small_padding"
+                android:textColor="@color/darkred"
+                android:layout_centerVertical="true"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="130000"
+                android:textSize="@dimen/small_textsize"
+                android:gravity="right|center"
+                android:layout_weight="1"
+                android:textColor="@color/darkred"
+                android:id="@+id/totalpending"
+                android:drawableRight="@drawable/ic_action_rupeedarkred"
+                />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

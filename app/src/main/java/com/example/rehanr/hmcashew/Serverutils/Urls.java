@@ -10,4 +10,7 @@ public class Urls {
     public static final String KERNALSTOCK = "backend/kernalstock.php";
     public static final String FACTORYREPORT = "backend/factoryreport.php";
     public static final String KERNALRATES = "backend/kernalrates.php";
+    public static final String ALLDEALERPENDINGPAYMENTS = "backend/alldealerspendingpayments.php";
+    public static final String DEALERPENDINGPAYMENT = "backend/pendingpayments.php";
+
 }
