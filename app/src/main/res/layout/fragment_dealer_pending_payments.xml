@@ -77,6 +77,49 @@
     </RelativeLayout>
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:orientation="horizontal"
+        android:background="@color/cream"
+        android:layout_marginLeft="@dimen/small_margin"
+        android:layout_marginRight="@dimen/small_margin"
+        android:layout_marginTop="@dimen/ideal_margin"
+        android:id="@+id/totalpendingpaymentlayout">
+
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TOTAL"
+            android:textSize="@dimen/ideal_textsize"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/small_margin"
+            android:drawableLeft="@drawable/ic_action_person"
+            android:gravity="center"
+            android:drawablePadding="@dimen/ideal_padding" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="180000"
+            android:layout_weight="1"
+            android:textColor="@color/darkred"
+            android:textSize="@dimen/ideal_textsize"
+            android:id="@+id/totalpendingpaymentamount"
+            android:gravity="end|center"
+            android:drawableRight="@drawable/ic_action_rupeedarkred"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
 
 
 </RelativeLayout>

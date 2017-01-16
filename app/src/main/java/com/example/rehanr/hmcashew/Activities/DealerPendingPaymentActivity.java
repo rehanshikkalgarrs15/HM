@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -41,6 +42,9 @@ public class DealerPendingPaymentActivity extends BaseActivity {
     TextView navigationItemNameTV,dateTV;
     Toolbar toolbar;
     RelativeLayout progressLayoutRL,poorConnectionLayoutRL;
+    LinearLayout headerLayoutLL,totalayoutLL;
+    TextView dealerTotalQtyTV,dealerTotalamountTV,dealerTotalPaidTV,
+            dealerTotalBalanceTV;
 
     private List<DealerPendingPayment> pendingPayments = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -61,18 +65,23 @@ public class DealerPendingPaymentActivity extends BaseActivity {
         progressLayoutRL = (RelativeLayout)findViewById(R.id.progresslayout);
         poorConnectionLayoutRL = (RelativeLayout)findViewById(R.id.retrylayout);
         dateTV = (TextView)findViewById(R.id.textdate);
-
+        dealerTotalQtyTV = (TextView)findViewById(R.id.dealertotalquantity);
+        dealerTotalamountTV = (TextView)findViewById(R.id.dealertotalamount);
+        dealerTotalPaidTV = (TextView)findViewById(R.id.dealertotalpaid);
+        dealerTotalBalanceTV = (TextView)findViewById(R.id.dealertotalbalance);
+        headerLayoutLL = (LinearLayout)findViewById(R.id.itemlayout);
+        totalayoutLL = (LinearLayout)findViewById(R.id.totaldealerpendinglayout);
         //display the backbutton on toolbar
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //set toolbar name
-        navigationItemNameTV.setText("Pending");
 
         //fetch values from prevous activity through Intent
         Intent intent = getIntent();
         dealername = intent.getStringExtra("dealername");
         date = intent.getStringExtra("date");
+        //set toolbar name
+        navigationItemNameTV.setText("Dealer Name - " + dealername);
 
         //call this function to load contents
         loadPendingPayment(dealername,date);
@@ -87,6 +96,8 @@ public class DealerPendingPaymentActivity extends BaseActivity {
                 progressLayoutRL.setVisibility(View.VISIBLE);
                 poorConnectionLayoutRL.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.GONE);
+                headerLayoutLL.setVisibility(View.GONE);
+                totalayoutLL.setVisibility(View.GONE);
 
                 //change date in toolbar
                 String dateformat = changeDateFormat(date);
@@ -131,10 +142,29 @@ public class DealerPendingPaymentActivity extends BaseActivity {
                 if (list.size() == 0){
                     recyclerView.setVisibility(View.GONE);
                     poorConnectionLayoutRL.setVisibility(View.VISIBLE);
+                    headerLayoutLL.setVisibility(View.GONE);
+                    totalayoutLL.setVisibility(View.GONE);
                 }
                 else{
                     recyclerView.setVisibility(View.VISIBLE);
                     poorConnectionLayoutRL.setVisibility(View.GONE);
+                    headerLayoutLL.setVisibility(View.VISIBLE);
+                    totalayoutLL.setVisibility(View.VISIBLE);
+
+
+                    //calculate the total and display in the footer layout
+                    int qty = 0;
+                    double amount = 0, paid = 0, balance = 0;
+                    for (DealerPendingPayment dealer : list){
+                        qty += dealer.getTotalQuantity();
+                        amount+=dealer.getBillamount();
+                        paid+=dealer.getPaymentMade();
+                        balance+=dealer.getPendingAmount();
+                    }
+                    dealerTotalQtyTV.setText(String.valueOf(qty));
+                    dealerTotalamountTV.setText(String.valueOf(amount));
+                    dealerTotalPaidTV.setText(String.valueOf(paid));
+                    dealerTotalBalanceTV.setText(String.valueOf(balance));
                 }
 
             }

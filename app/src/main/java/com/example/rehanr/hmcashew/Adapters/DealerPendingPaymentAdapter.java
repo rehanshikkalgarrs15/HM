@@ -39,14 +39,12 @@ public class DealerPendingPaymentAdapter extends RecyclerView.Adapter<DealerPend
     @Override
     public void onBindViewHolder(DealerPendingPaymentAdapter.MyViewHolder holder, int position) {
         DealerPendingPayment dealer = pendingPayments.get(position);
-        holder.dealername.setText("Dealer Name - " + dealer.getDealerName());
         holder.billno.setText(String.valueOf(dealer.getBillNo()));
         holder.billdate.setText(changeDateFormat(dealer.getBilldate()));
         holder.quantity.setText(String.valueOf(dealer.getTotalQuantity()));
-        holder.ppdate.setText(changeDateFormat(dealer.getPPdate()));
         holder.totalamount.setText( String.valueOf(dealer.getBillamount()));
         holder.totalpaid.setText(String.valueOf(dealer.getPaymentMade()));
-        holder.totalpaid.setText( String.valueOf(dealer.getPendingAmount()));
+        holder.totalpending.setText( String.valueOf(dealer.getPendingAmount()));
     }
 
     @Override
@@ -59,11 +57,9 @@ public class DealerPendingPaymentAdapter extends RecyclerView.Adapter<DealerPend
                         billnotag,billdatetag,quantitytag,ppdatetag,totalamounttag,totalpaidtag,totalpendingtag;
         public MyViewHolder(View view) {
             super(view);
-            dealername = (TextView)view.findViewById(R.id.dealername);
             billno = (TextView)view.findViewById(R.id.billno);
             billdate = (TextView)view.findViewById(R.id.billdate);
             quantity = (TextView)view.findViewById(R.id.totalquantity);
-            ppdate = (TextView)view.findViewById(R.id.ppdate);
             totalamount = (TextView)view.findViewById(R.id.totalamount);
             totalpaid = (TextView)view.findViewById(R.id.totalpaid);
             totalpending = (TextView)view.findViewById(R.id.totalpending);

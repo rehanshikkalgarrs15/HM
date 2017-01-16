@@ -12,17 +12,201 @@
         layout="@layout/kernalstock_toolbar"
         android:id="@+id/toobar"/>
 
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:padding="@dimen/ideal_padding"
+        android:orientation="horizontal"
+        android:id="@+id/itemlayout"
+        android:layout_below="@+id/toobar">
+
+
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bill Date"
+            android:gravity="center"
+            android:textSize="@dimen/ideal_textsize"
+            android:textColor="@color/newcolor"
+            android:layout_weight="1"
+            android:textStyle="bold"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Bill No"
+            android:gravity="center"
+            android:textSize="@dimen/ideal_textsize"
+            android:textColor="@color/newcolor"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quantity"
+            android:gravity="center"
+            android:textSize="@dimen/ideal_textsize"
+            android:textColor="@color/newcolor"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bill Amount"
+            android:gravity="center"
+            android:textSize="@dimen/ideal_textsize"
+            android:textColor="@color/newcolor"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Paid"
+            android:textSize="@dimen/ideal_textsize"
+            android:gravity="center"
+            android:textColor="@color/newcolor"
+            android:textStyle="bold"
+            android:layout_weight="1"
+
+            />
+
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Balance"
+            android:textSize="@dimen/ideal_textsize"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textColor="@color/darkred"
+            android:textStyle="bold"
+            />
+
+
+
+    </LinearLayout>
+
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toobar"
+        android:layout_below="@+id/itemlayout"
         android:scrollbars="vertical"
         android:id="@+id/recyclerview"
-        android:layout_marginBottom="32dp"
-        android:layout_marginTop="@dimen/small_margin"
         >
 
     </android.support.v7.widget.RecyclerView>
+
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:orientation="horizontal"
+        android:id="@+id/totaldealerpendinglayout"
+        android:layout_below="@+id/recyclerview"
+        android:layout_marginTop="@dimen/small_margin"
+        android:padding="@dimen/ideal_padding"
+        android:gravity="center"
+        android:background="@color/cream">
+
+
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TOTAL"
+            android:gravity="center"
+            android:textSize="@dimen/ideal_textsize"
+            android:textColor="@color/darkred"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="@dimen/ideal_textsize"
+            android:textColor="@color/newcolor"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="102"
+            android:gravity="center"
+            android:textSize="@dimen/small_textsize"
+            android:textColor="@color/darkred"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:id="@+id/dealertotalquantity"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="9800000"
+            android:gravity="center"
+            android:textSize="@dimen/small_textsize"
+            android:textColor="@color/darkred"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:id="@+id/dealertotalamount"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="700000"
+            android:textSize="@dimen/small_textsize"
+            android:gravity="center"
+            android:textColor="@color/darkred"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:id="@+id/dealertotalpaid"
+
+            />
+
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="280000"
+            android:textSize="@dimen/small_textsize"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textColor="@color/darkred"
+            android:textStyle="bold"
+            android:id="@+id/dealertotalbalance"
+            />
+
+
+
+    </LinearLayout>
+
 
     <RelativeLayout
         android:layout_width="wrap_content"

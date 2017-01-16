@@ -28,7 +28,7 @@
         <activity android:name=".Fragments.KernalStockFragment" />
         <activity android:name=".Fragments.RCNStockFragment" />
         <activity android:name=".DatePicker.DatePickerActivity" />
-        <activity android:name=".Activities.DealerPendingPaymentActivity"></activity>
+        <activity  android:screenOrientation="landscape" android:configChanges="orientation|keyboardHidden" android:name=".Activities.DealerPendingPaymentActivity"></activity>
     </application>
 
 </manifest>

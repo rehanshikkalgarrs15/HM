@@ -32,14 +32,14 @@
         android:layout_height="wrap_content"
         android:text="150000"
         android:textSize="@dimen/ideal_textsize"
-        android:textColor="@color/newcolor"
+        android:textColor="@color/darkred"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_margin="@dimen/small_margin"
         android:id="@+id/pendingamount"
         android:gravity="center"
-        android:drawableRight="@drawable/ic_action_rupeegreen"
+        android:drawableRight="@drawable/ic_action_rupeedarkred"
         android:drawablePadding="@dimen/small_padding"/>
 
 

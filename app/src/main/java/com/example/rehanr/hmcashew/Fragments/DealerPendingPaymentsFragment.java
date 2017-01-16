@@ -59,10 +59,10 @@ import java.util.List;
  */
 public class DealerPendingPaymentsFragment extends BaseActivity {
 
-    TextView navigationItemNameTV,dateTV,totalTinsTV;
+    TextView navigationItemNameTV,dateTV,totalpendingAmountTV;
     ImageView dateIV;
     Toolbar toolbar;
-    RelativeLayout progressLayoutRL,poorConnectionLayoutRL;
+    RelativeLayout progressLayoutRL,poorConnectionLayoutRL,totalpendingpaymentlayout;
     RecyclerView recyclerView;
     private AllDealerPendingPaymentAdapter mAdapter;
 
@@ -88,9 +88,10 @@ public class DealerPendingPaymentsFragment extends BaseActivity {
         navigationItemNameTV = (TextView)findViewById(R.id.navigationtitle);
         progressLayoutRL = (RelativeLayout)findViewById(R.id.progresslayout);
         poorConnectionLayoutRL = (RelativeLayout)findViewById(R.id.retrylayout);
+        totalpendingpaymentlayout = (RelativeLayout)findViewById(R.id.totalpendingpaymentlayout);
         dateTV = (TextView)findViewById(R.id.textdate);
         dateIV = (ImageView)findViewById(R.id.imagedate);
-        totalTinsTV = (TextView)findViewById(R.id.totalkernalstocktins);
+        totalpendingAmountTV = (TextView)findViewById(R.id.totalpendingpaymentamount);
 
         //display the backbutton on toolbar
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -176,6 +177,7 @@ public class DealerPendingPaymentsFragment extends BaseActivity {
          * if NOT CONNECTED then load stored data
          * else load fetched data
          */
+        totalpendingpaymentlayout.setVisibility(View.GONE);
         progressLayoutRL.setVisibility(View.GONE);
         poorConnectionLayoutRL.setVisibility(View.GONE);
         recyclerView.setVisibility(View.GONE);
@@ -208,7 +210,7 @@ public class DealerPendingPaymentsFragment extends BaseActivity {
                 progressLayoutRL.setVisibility(View.VISIBLE);
                 poorConnectionLayoutRL.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.GONE);
-
+                totalpendingpaymentlayout.setVisibility(View.GONE);
                 //change date in toolbar
                 String dateformat = changeDateFormat(selectedDATE);
                 dateTV.setText(dateformat);
@@ -250,12 +252,21 @@ public class DealerPendingPaymentsFragment extends BaseActivity {
                 mAdapter.notifyDataSetChanged();
 
                 if (list.size() == 0){
+                    totalpendingpaymentlayout.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.GONE);
                     poorConnectionLayoutRL.setVisibility(View.VISIBLE);
                 }
                 else{
                     recyclerView.setVisibility(View.VISIBLE);
                     poorConnectionLayoutRL.setVisibility(View.GONE);
+                    totalpendingpaymentlayout.setVisibility(View.VISIBLE);
+
+                    //set total pending payment amount
+                    double totalpending = 0;
+                    for (DealerPendingPayment pending : list){
+                        totalpending += pending.getPendingAmount();
+                    }
+                    totalpendingAmountTV.setText(String.valueOf(totalpending));
                 }
 
             }
