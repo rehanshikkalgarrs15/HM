@@ -1,13 +1,200 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/baselayout"
+
     tools:context=".Fragments.RCNStockFragment">
 
     <include
         layout="@layout/activity_toolbar"
         android:id="@+id/toobar"/>
 
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:padding="@dimen/ideal_padding"
+        android:orientation="horizontal"
+        android:id="@+id/itemlayout"
+        android:layout_below="@+id/toobar">
 
-</LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Tag"
+            android:gravity="center"
+            android:textSize="@dimen/ideal_textsize"
+            android:textColor="@color/newcolor"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bags"
+            android:gravity="center"
+            android:textSize="@dimen/ideal_textsize"
+            android:textColor="@color/newcolor"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quantity(kgs)"
+            android:gravity="center"
+            android:textSize="@dimen/ideal_textsize"
+            android:textColor="@color/newcolor"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            />
+
+
+
+
+    </LinearLayout>
+
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/itemlayout"
+        android:scrollbars="vertical"
+        android:id="@+id/recyclerview"
+        >
+
+    </android.support.v7.widget.RecyclerView>
+
+
+
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:orientation="horizontal"
+        android:id="@+id/totaldealerpendinglayout"
+        android:layout_below="@+id/recyclerview"
+        android:layout_marginTop="@dimen/small_margin"
+        android:padding="@dimen/ideal_padding"
+        android:background="@color/cream"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true">
+
+
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TOTAL"
+            android:gravity="center"
+            android:textSize="@dimen/ideal_textsize"
+            android:textColor="@color/darkred"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            />
+
+
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="102"
+            android:gravity="center"
+            android:textSize="@dimen/small_textsize"
+            android:textColor="@color/darkred"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:id="@+id/dealertotalquantity"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="9800000"
+            android:gravity="center"
+            android:textSize="@dimen/small_textsize"
+            android:textColor="@color/darkred"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:id="@+id/dealertotalamount"
+            />
+
+
+
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/progresslayout"
+        android:visibility="gone">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:color="@color/colorAccent"
+            android:id="@+id/progressbar"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loading Dealer Payments..."
+            android:textColor="@color/colorAccent"
+            android:layout_below="@+id/progressbar"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/retrylayout"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Data on Selected Date or retry to load Data"
+            android:textColor="@color/colorAccent"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/poorconnection"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_retry"
+            android:layout_below="@+id/poorconnection"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/small_margin"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
+</ScrollView>

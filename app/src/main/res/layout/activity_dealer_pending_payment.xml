@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/baselayout"
     android:background="@color/colorPrimary"
-    tools:context="com.example.rehanr.hmcashew.Activities.DealerPendingPaymentActivity">
+    tools:context="com.example.rehanr.hmcashew.Activities.DealerPendingPaymentActivity"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 
     <include
@@ -107,23 +108,23 @@
         android:layout_below="@+id/itemlayout"
         android:scrollbars="vertical"
         android:id="@+id/recyclerview"
+        android:layout_marginBottom="@dimen/very_large_margin"
         >
 
     </android.support.v7.widget.RecyclerView>
 
 
-    <LinearLayout
+     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="8dp"
         android:orientation="horizontal"
         android:id="@+id/totaldealerpendinglayout"
-        android:layout_below="@+id/recyclerview"
-        android:layout_marginTop="@dimen/small_margin"
         android:padding="@dimen/ideal_padding"
-        android:gravity="center"
-        android:background="@color/cream">
+        android:background="@color/cream"
+         android:layout_alignParentBottom="true"
+         android:layout_alignParentEnd="true">
 
 
 

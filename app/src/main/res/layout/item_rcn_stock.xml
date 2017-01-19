@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="8dp"
+    android:layout_marginTop="@dimen/small_margin"
+    android:padding="@dimen/ideal_padding"
+    android:orientation="horizontal"
+    android:background="@color/cream"
+    android:id="@+id/itemlayout">
+
+
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Benin"
+        android:gravity="center"
+        android:textSize="@dimen/small_textsize"
+        android:textColor="@color/newcolor"
+        android:id="@+id/tag"
+        android:layout_weight="1"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="24"
+        android:gravity="center"
+        android:textSize="@dimen/small_textsize"
+        android:textColor="@color/newcolor"
+        android:id="@+id/bags"
+        android:layout_weight="1"/>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="96000"
+        android:gravity="center"
+        android:textSize="@dimen/small_textsize"
+        android:textColor="@color/newcolor"
+        android:id="@+id/qty"
+        android:layout_weight="1"/>
+
+
+
+</LinearLayout>
