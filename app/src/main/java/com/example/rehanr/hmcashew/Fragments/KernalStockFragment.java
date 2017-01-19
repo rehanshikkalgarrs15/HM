@@ -67,7 +67,7 @@ public class KernalStockFragment extends BaseActivity implements DatePickerDialo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_kernal_stock);
         applyFont(KernalStockFragment.this,findViewById(R.id.baselayout));
-        //set the toolbar to Activity
+        //set the toolbar
         toolbar = (Toolbar)findViewById(R.id.toobar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
