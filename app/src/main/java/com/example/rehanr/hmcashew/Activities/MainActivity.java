@@ -30,6 +30,7 @@ import com.example.rehanr.hmcashew.Fragments.DealerStockFragment;
 import com.example.rehanr.hmcashew.Fragments.KernalRatesFragment;
 import com.example.rehanr.hmcashew.Fragments.KernalStockFragment;
 import com.example.rehanr.hmcashew.Fragments.RCNStockFragment;
+import com.example.rehanr.hmcashew.Interfaces.AlertMagnatic;
 import com.example.rehanr.hmcashew.Models.FactoryReport;
 import com.example.rehanr.hmcashew.Models.TinStock;
 import com.example.rehanr.hmcashew.Models.User;
@@ -48,6 +49,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import static com.example.rehanr.hmcashew.Services.AlertDialogGeneric.getConfirmDialog;
 
 public class MainActivity extends BaseActivity {
 
@@ -306,6 +309,7 @@ public class MainActivity extends BaseActivity {
                         checkInternetConnectionAndLoadData(selectedDATE,1);
                     }
                 }, Year, Month, Day);
+        datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
         datePickerDialog.show();
     }
 
@@ -376,8 +380,27 @@ public class MainActivity extends BaseActivity {
                             factoryReportLayoutLL.setVisibility(View.GONE);
                             nodataLayoutRL.setVisibility(View.VISIBLE);
                             loadingLayoutRL.setVisibility(View.GONE);
+                            getConfirmDialog(MainActivity.this,getString(R.string.emptylist), getString(R.string.loadstoreddata), getString(R.string.yes), getString(R.string.no), false,
+                                    new AlertMagnatic() {
+
+                                        @Override
+                                        public void PositiveMethod(final DialogInterface dialog, final int id) {
+                                            nodataLayoutRL.setVisibility(View.GONE);
+                                            factoryReportLayoutLL.setVisibility(View.VISIBLE);
+                                            FactoryReport factoryReport = databaseHandler.getFactoryReport();
+                                            displayDataOnLayout(factoryReport);
+                                            String laststoreddate = databaseHandler.getLastStoredDate();
+                                            dateTextTV.setText("Factory Report As on\n\t\t" + changeDateFormat(laststoreddate));
+                                        }
+
+                                        @Override
+                                        public void NegativeMethod(DialogInterface dialog, int id) {
+                                            Toast.makeText(MainActivity.this,"NO",Toast.LENGTH_LONG).show();
+                                        }
+                                    });
                         }
                     } else {
+                        Toast.makeText(MainActivity.this,"Something went wrong",Toast.LENGTH_LONG).show();
                         factoryReportLayoutLL.setVisibility(View.GONE);
                         nodataLayoutRL.setVisibility(View.VISIBLE);
                         loadingLayoutRL.setVisibility(View.GONE);

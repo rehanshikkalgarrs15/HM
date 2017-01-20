@@ -12,5 +12,7 @@ public class Urls {
     public static final String KERNALRATES = "backend/kernalrates.php";
     public static final String ALLDEALERPENDINGPAYMENTS = "backend/alldealerspendingpayments.php";
     public static final String DEALERPENDINGPAYMENT = "backend/pendingpayments.php";
+    public static final String RCNSTOCK = "backend/rcnstock.php";
+    public static final String DEALERSTOCK = "backend/kernalstock.php";//need to change this url
 
 }

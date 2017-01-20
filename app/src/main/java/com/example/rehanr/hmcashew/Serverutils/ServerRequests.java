@@ -119,4 +119,19 @@ public class ServerRequests {
         }
         return responseObject;
     }
+
+    public JSONObject loadRCNStock(String selectedDate) {
+        JSONObject request = new JSONObject();
+        JSONObject responseObject = null;
+        try {
+            request.put("date",selectedDate);
+            Log.e("<----REQUEST---->",request.toString());
+            String response = clientWrapper.doPostRequest(Urls.BASEURL + Urls.RCNSTOCK,request.toString());
+            responseObject = new JSONObject(response);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return responseObject;
+    }
 }

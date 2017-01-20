@@ -1,17 +1,13 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<RelativeLayout
-    android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/baselayout"
-
-    tools:context=".Fragments.RCNStockFragment">
+    android:background="@color/colorPrimary"
+    tools:context=".Fragments.RCNStockFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <include
-        layout="@layout/activity_toolbar"
+        layout="@layout/kernalstock_toolbar"
         android:id="@+id/toobar"/>
 
     <LinearLayout
@@ -72,6 +68,7 @@
         android:layout_below="@+id/itemlayout"
         android:scrollbars="vertical"
         android:id="@+id/recyclerview"
+        android:layout_marginBottom="@dimen/very_large_margin"
         >
 
     </android.support.v7.widget.RecyclerView>
@@ -85,9 +82,7 @@
         android:layout_height="wrap_content"
         android:elevation="8dp"
         android:orientation="horizontal"
-        android:id="@+id/totaldealerpendinglayout"
-        android:layout_below="@+id/recyclerview"
-        android:layout_marginTop="@dimen/small_margin"
+        android:id="@+id/totalrcnstocklayout"
         android:padding="@dimen/ideal_padding"
         android:background="@color/cream"
         android:layout_alignParentBottom="true"
@@ -101,11 +96,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TOTAL"
-            android:gravity="center"
             android:textSize="@dimen/ideal_textsize"
             android:textColor="@color/darkred"
             android:layout_weight="1"
             android:textStyle="bold"
+            android:gravity="center"
             />
 
 
@@ -116,23 +111,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="102"
-            android:gravity="center"
             android:textSize="@dimen/small_textsize"
             android:textColor="@color/darkred"
             android:textStyle="bold"
             android:layout_weight="1"
-            android:id="@+id/dealertotalquantity"/>
+            android:id="@+id/totalbags"
+            android:gravity="center"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="9800000"
-            android:gravity="center"
             android:textSize="@dimen/small_textsize"
             android:textColor="@color/darkred"
             android:textStyle="bold"
             android:layout_weight="1"
-            android:id="@+id/dealertotalamount"
+            android:id="@+id/totalquantity"
+            android:gravity="center"
             />
 
 
@@ -197,4 +192,3 @@
 
 
 </RelativeLayout>
-</ScrollView>

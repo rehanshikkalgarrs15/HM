@@ -168,6 +168,7 @@ public class DealerPendingPaymentsFragment extends BaseActivity {
                         checkInternetConnectionAndLoadData(selectedDATE,1);
                     }
                 }, Year, Month, Day);
+        datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
         datePickerDialog.show();
     }
 

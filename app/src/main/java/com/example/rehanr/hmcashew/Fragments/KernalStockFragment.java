@@ -222,6 +222,8 @@ public class KernalStockFragment extends BaseActivity implements DatePickerDialo
                         checkInternetConnectionAndLoadData(selectedDATE,1);
                     }
                 }, Year, Month, Day);
+
+        datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
         datePickerDialog.show();
     }
 
