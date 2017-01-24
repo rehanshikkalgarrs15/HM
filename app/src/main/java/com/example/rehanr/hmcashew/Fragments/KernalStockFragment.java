@@ -23,7 +23,10 @@ import android.widget.Toast;
 
 import com.example.rehanr.hmcashew.Activities.BaseActivity;
 import com.example.rehanr.hmcashew.Adapters.KernalStockAdapter;
+import com.example.rehanr.hmcashew.Adapters.RcnStockAdapter;
 import com.example.rehanr.hmcashew.Database.KernalStockDBHandler;
+import com.example.rehanr.hmcashew.Interfaces.AlertMagnatic;
+import com.example.rehanr.hmcashew.Models.RcnStock;
 import com.example.rehanr.hmcashew.Models.TinStock;
 import com.example.rehanr.hmcashew.Parsers.KernalStockParser;
 import com.example.rehanr.hmcashew.R;
@@ -38,6 +41,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import static com.example.rehanr.hmcashew.Services.AlertDialogGeneric.getConfirmDialog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -136,48 +141,11 @@ public class KernalStockFragment extends BaseActivity implements DatePickerDialo
         if (!NetworkUtils.isConnected(KernalStockFragment.this)){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("No Internet Connection");
-            builder.setMessage("Loading Previous Data!!")
+            builder.setMessage("Load stored data!!")
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            //handling ok button on click
-                            if (databaseHandler.getKernalStockCount() <= 0){
-                                Toast.makeText(KernalStockFragment.this,"No Data was Stored..",Toast.LENGTH_LONG).show();
-                            }
-                            else{
-                                //if data is stored in sqlite
-                                List<TinStock> tinStocks = new ArrayList<TinStock>();
-                                tinStocks = databaseHandler.getAllStocks();
-                                if (tinStocks.size() == 0){
-                                    progressLayoutRL.setVisibility(View.GONE);
-                                    poorConnectionLayoutRL.setVisibility(View.GONE);
-                                    recyclerView.setVisibility(View.GONE);
-                                    totaltinsLayoutLL.setVisibility(View.GONE);
-                                    Toast.makeText(KernalStockFragment.this,"No Data was Stored..",Toast.LENGTH_LONG).show();
-                                }
-                                else {
-                                    progressLayoutRL.setVisibility(View.GONE);
-                                    poorConnectionLayoutRL.setVisibility(View.GONE);
-                                    recyclerView.setVisibility(View.VISIBLE);
-                                    totaltinsLayoutLL.setVisibility(View.VISIBLE);
-                                    mAdapter = new KernalStockAdapter(tinStocks, KernalStockFragment.this);
-                                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(KernalStockFragment.this.getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-                                    recyclerView.setLayoutManager(mLayoutManager);
-                                    recyclerView.setItemAnimator(new DefaultItemAnimator());
-                                    recyclerView.setAdapter(mAdapter);
-                                    mAdapter.notifyDataSetChanged();
-
-                                    //count total tins
-                                    int totalTins = 0;
-                                    for (TinStock tinStock : tinStocks){
-                                        totalTins+=tinStock.getTins();
-                                    }
-                                    totalTinsTV.setText(String.valueOf(totalTins)+" Tins");
-
-                                    String laststoredDate = databaseHandler.getLastStoredDate();
-                                    dateTV.setText("Kernal Stock As on \n\t\t" + changeDateFormat(laststoredDate));
-                                }
-                            }
+                            displaydataonLayout();
                         }
                     });
             AlertDialog alert = builder.create();
@@ -239,19 +207,6 @@ public class KernalStockFragment extends BaseActivity implements DatePickerDialo
                     poorConnectionLayoutRL.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.GONE);
                     totaltinsLayoutLL.setVisibility(View.GONE);
-                    //change date in toolbar
-                    SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-DD");
-                    SimpleDateFormat format2 = new SimpleDateFormat("dd-MMMM-yyyy");
-                    Date date = null;
-                    try {
-                        date = format1.parse(selectedDate);
-                    } catch (ParseException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    String dateString = format2.format(date);
-                    dateString = dateString.replace("-", " ");
-                    dateTV.setText(dateString);
                 }
 
                 @Override
@@ -260,7 +215,7 @@ public class KernalStockFragment extends BaseActivity implements DatePickerDialo
                 }
 
                 @Override
-                protected void onPostExecute(JSONObject responseObject) {
+                protected void onPostExecute(final JSONObject responseObject) {
                     super.onPostExecute(responseObject);
 
                     //handle json reposne object
@@ -273,6 +228,50 @@ public class KernalStockFragment extends BaseActivity implements DatePickerDialo
                             if (responseObject.getString("status").equals("success")) {
                                 list = new KernalStockParser().parse(responseObject.getJSONArray("result"));
                                 lastfetcheddate = responseObject.getString("date");
+                                displayDataNetConnectionOK(list,lastfetcheddate);
+                                dateTV.setText(changeDateFormat(lastfetcheddate));
+                            }
+                            else if (responseObject.getString("status").equals("failed")){
+                                recyclerView.setVisibility(View.GONE);
+                                poorConnectionLayoutRL.setVisibility(View.VISIBLE);
+                                totaltinsLayoutLL.setVisibility(View.GONE);
+                                getConfirmDialog(KernalStockFragment.this,getString(R.string.emptylist), getString(R.string.loadstoreddata), getString(R.string.yes), getString(R.string.no), false,
+                                        new AlertMagnatic() {
+
+                                            @Override
+                                            public void PositiveMethod(final DialogInterface dialog, final int id) {
+                                                displaydataonLayout();
+                                            }
+
+                                            @Override
+                                            public void NegativeMethod(DialogInterface dialog, int id) {
+                                                recyclerView.setVisibility(View.GONE);
+                                                poorConnectionLayoutRL.setVisibility(View.VISIBLE);
+                                                progressLayoutRL.setVisibility(View.GONE);
+                                            }
+                                        });
+                            }
+                            else if (responseObject.getString("status").equals("datechanged")){
+                                list = new KernalStockParser().parse(responseObject.getJSONArray("result"));
+                                lastfetcheddate = responseObject.getString("date");
+                                final List<TinStock> finalList = list;
+                                final String finalLastfetcheddate = lastfetcheddate;
+                                getConfirmDialog(KernalStockFragment.this,getString(R.string.nodataonselecteddate), getString(R.string.loadrecentdata), getString(R.string.yes), getString(R.string.no), false,
+                                        new AlertMagnatic() {
+
+                                            @Override
+                                            public void PositiveMethod(DialogInterface dialog, int id) {
+                                                displayDataNetConnectionOK(finalList, finalLastfetcheddate);
+                                                dateTV.setText("Kernal Stock As on\n\t\t"+changeDateFormat(finalLastfetcheddate));
+                                            }
+
+                                            @Override
+                                            public void NegativeMethod(DialogInterface dialog, int id) {
+                                                recyclerView.setVisibility(View.GONE);
+                                                poorConnectionLayoutRL.setVisibility(View.VISIBLE);
+                                                progressLayoutRL.setVisibility(View.GONE);
+                                            }
+                                        });
                             }
                         }
                     }
@@ -280,55 +279,58 @@ public class KernalStockFragment extends BaseActivity implements DatePickerDialo
                         e.printStackTrace();
                     }
 
-                    progressLayoutRL.setVisibility(View.GONE);
-                    Log.e("list",list.toString());
-                    mAdapter = new KernalStockAdapter(list,KernalStockFragment.this);
-                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(KernalStockFragment.this.getApplicationContext(),LinearLayoutManager.VERTICAL,false);
-                    recyclerView.setLayoutManager(mLayoutManager);
-                    recyclerView.setItemAnimator(new DefaultItemAnimator());
-                    recyclerView.setAdapter(mAdapter);
-                    mAdapter.notifyDataSetChanged();
+                }
+            }.execute();
 
-                    if (list.size() == 0){
-                        recyclerView.setVisibility(View.GONE);
-                        poorConnectionLayoutRL.setVisibility(View.VISIBLE);
-                        totaltinsLayoutLL.setVisibility(View.GONE);
-                    }
-                    else{
-                        recyclerView.setVisibility(View.VISIBLE);
-                        poorConnectionLayoutRL.setVisibility(View.GONE);
-                        totaltinsLayoutLL.setVisibility(View.VISIBLE);
+    }
 
-                        //total all tins
-                        int totalTins = 0;
-                        for (TinStock stockList : list){
-                            totalTins+=stockList.getTins();
-                        }
-                        totalTinsTV.setText(String.valueOf(totalTins)+" Tins");
+    private void displayDataNetConnectionOK(List<TinStock> list, String lastfetcheddate) {
+        progressLayoutRL.setVisibility(View.GONE);
+        Log.e("list",list.toString());
+        mAdapter = new KernalStockAdapter(list,KernalStockFragment.this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(KernalStockFragment.this.getApplicationContext(),LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+
+        if (list.size() == 0){
+            recyclerView.setVisibility(View.GONE);
+            poorConnectionLayoutRL.setVisibility(View.VISIBLE);
+            totaltinsLayoutLL.setVisibility(View.GONE);
+        }
+        else {
+            recyclerView.setVisibility(View.VISIBLE);
+            poorConnectionLayoutRL.setVisibility(View.GONE);
+            totaltinsLayoutLL.setVisibility(View.VISIBLE);
+
+            //total all tins
+            int totalTins = 0;
+            for (TinStock stockList : list) {
+                totalTins += stockList.getTins();
+            }
+            totalTinsTV.setText(String.valueOf(totalTins) + " Tins");
 
 
-                        //store the LISTOFKERNALSTOCK in sqlite DB,
+            //store the LISTOFKERNALSTOCK in sqlite DB,
                         /*
                             * first clearAll the previously stored data from the table
                             * add all the new fetched items to the table 1
                             * add the date to table 2
                          */
 
-                        //1 - clear all the table1,2 data
-                        databaseHandler.ClearAll();
+            //1 - clear all the table1,2 data
+            databaseHandler.ClearAll();
 
-                        //2 - store new fetched data in the table1
-                        for (TinStock stock : list){
-                            databaseHandler.addStock(stock);
-                        }
+            //2 - store new fetched data in the table1
+            for (TinStock stock : list) {
+                databaseHandler.addStock(stock);
+            }
 
-                        //3 - adding date to table 2
-                        Log.e("Last fetched date",lastfetcheddate);
-                        databaseHandler.addLastStoredDate(lastfetcheddate);
-                    }
-                }
-            }.execute();
-
+            //3 - adding date to table 2
+            Log.e("Last fetched date", lastfetcheddate);
+            databaseHandler.addLastStoredDate(lastfetcheddate);
+        }
     }
 
     //finish the activity when toobar back button is pressed
@@ -357,5 +359,40 @@ public class KernalStockFragment extends BaseActivity implements DatePickerDialo
         String dateString = format2.format(date);
         dateString = dateString.replace("-", " ");
         return dateString;
+    }
+
+    public void displaydataonLayout(){
+        //handling ok button on click
+        if (databaseHandler.getKernalStockCount() <= 0){
+            Toast.makeText(KernalStockFragment.this,"No Data was Stored..",Toast.LENGTH_LONG).show();
+            recyclerView.setVisibility(View.GONE);
+            poorConnectionLayoutRL.setVisibility(View.VISIBLE);
+            progressLayoutRL.setVisibility(View.GONE);
+        }
+        else{
+            //if data is stored in sqlite
+            List<TinStock> tinStocks = new ArrayList<TinStock>();
+            tinStocks = databaseHandler.getAllStocks();
+            progressLayoutRL.setVisibility(View.GONE);
+            poorConnectionLayoutRL.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+            totaltinsLayoutLL.setVisibility(View.VISIBLE);
+            mAdapter = new KernalStockAdapter(tinStocks, KernalStockFragment.this);
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(KernalStockFragment.this.getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(mLayoutManager);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            recyclerView.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+
+            //count total tins
+            int totalTins = 0;
+            for (TinStock tinStock : tinStocks){
+                totalTins+=tinStock.getTins();
+            }
+            totalTinsTV.setText(String.valueOf(totalTins)+" Tins");
+
+            String laststoredDate = databaseHandler.getLastStoredDate();
+            dateTV.setText("Kernal Stock As on \n\t\t" + changeDateFormat(laststoredDate));
+        }
     }
 }

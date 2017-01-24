@@ -38,11 +38,11 @@
         <menu>
 
             <group android:checkableBehavior="single">
-                    <item
+                    <!--item
                     android:title="Dealer Stock"
                     android:id="@+id/deakerstock"
                     android:icon="@drawable/ic_action_dealerstock"
-                    />
+                    /-->
 
 
                     <item

@@ -34,11 +34,17 @@ import com.baoyz.widget.PullRefreshLayout;
 import com.example.rehanr.hmcashew.Activities.BaseActivity;
 import com.example.rehanr.hmcashew.Activities.DealerPendingPaymentActivity;
 import com.example.rehanr.hmcashew.Adapters.AllDealerPendingPaymentAdapter;
+import com.example.rehanr.hmcashew.Adapters.DealerPendingPaymentAdapter;
 import com.example.rehanr.hmcashew.Adapters.KernalStockAdapter;
+import com.example.rehanr.hmcashew.Adapters.RcnStockAdapter;
+import com.example.rehanr.hmcashew.Database.DealerPendingPaymentDBHandler;
+import com.example.rehanr.hmcashew.Interfaces.AlertMagnatic;
 import com.example.rehanr.hmcashew.Models.DealerPendingPayment;
+import com.example.rehanr.hmcashew.Models.RcnStock;
 import com.example.rehanr.hmcashew.Models.TinStock;
 import com.example.rehanr.hmcashew.Parsers.AllDealerPendingPaymentParser;
 import com.example.rehanr.hmcashew.Parsers.KernalStockParser;
+import com.example.rehanr.hmcashew.Parsers.RcnStockParser;
 import com.example.rehanr.hmcashew.R;
 import com.example.rehanr.hmcashew.Serverutils.ServerRequests;
 import com.example.rehanr.hmcashew.Utils.NetworkUtils;
@@ -54,6 +60,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.example.rehanr.hmcashew.Services.AlertDialogGeneric.getConfirmDialog;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -65,14 +73,16 @@ public class DealerPendingPaymentsFragment extends BaseActivity {
     RelativeLayout progressLayoutRL,poorConnectionLayoutRL,totalpendingpaymentlayout;
     RecyclerView recyclerView;
     private AllDealerPendingPaymentAdapter mAdapter;
-
+    boolean IS_LOADED_FROM_DB = false;
 
     //for date picker
     Calendar calendar ;
     DatePickerDialog datePickerDialog ;
     int Year, Month, Day ;
     String selectedDATE = "";
+    String DATE = "";
     List<DealerPendingPayment> pendingPaymentList = new ArrayList<>();
+    DealerPendingPaymentDBHandler dataBaseHandler = new DealerPendingPaymentDBHandler(DealerPendingPaymentsFragment.this);
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -138,11 +148,16 @@ public class DealerPendingPaymentsFragment extends BaseActivity {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(DealerPendingPaymentsFragment.this, recyclerView, new ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                DealerPendingPayment dealer = pendingPaymentList.get(position);
-                Intent intent = new Intent(DealerPendingPaymentsFragment.this, DealerPendingPaymentActivity.class);
-                intent.putExtra("dealername",dealer.getDealerName());
-                intent.putExtra("date", selectedDATE);
-                startActivity(intent);
+                if (IS_LOADED_FROM_DB){
+                    Toast.makeText(DealerPendingPaymentsFragment.this,"Data not locally stored",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    DealerPendingPayment dealer = pendingPaymentList.get(position);
+                    Intent intent = new Intent(DealerPendingPaymentsFragment.this, DealerPendingPaymentActivity.class);
+                    intent.putExtra("dealername", dealer.getDealerName());
+                    intent.putExtra("date", DATE);
+                    startActivity(intent);
+                }
             }
 
             @Override
@@ -165,6 +180,7 @@ public class DealerPendingPaymentsFragment extends BaseActivity {
                         Log.e("selected date",dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                         String selectedDate = year+"-"+(monthOfYear+1)+"-"+dayOfMonth;
                         selectedDATE = selectedDate;
+                        DATE = selectedDate;
                         checkInternetConnectionAndLoadData(selectedDATE,1);
                     }
                 }, Year, Month, Day);
@@ -185,12 +201,15 @@ public class DealerPendingPaymentsFragment extends BaseActivity {
         if (!NetworkUtils.isConnected(DealerPendingPaymentsFragment.this)){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("No Internet Connection");
-            builder.setMessage("Loading Previous Data!!")
+            builder.setMessage("Load stored data!!")
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             //handling ok button on click
+                            displaydataonLayout();
                         }});
+            AlertDialog alert = builder.create();
+            alert.show();
         }
         else if (code  == 0){
             //by default load todays Dealer Pending Payments
@@ -233,9 +252,58 @@ public class DealerPendingPaymentsFragment extends BaseActivity {
                 try {
                     if (responseObject != null) {
                         if (responseObject.getString("status").equals("success")) {
+                            IS_LOADED_FROM_DB = false;
                             list = new AllDealerPendingPaymentParser().parse(responseObject.getJSONArray("result"));
                             pendingPaymentList = list;
                             lastfetcheddate = responseObject.getString("date");
+                            DATE = lastfetcheddate;
+                            displayDataNetConnectionOK(list,lastfetcheddate);
+                        }
+                        else if (responseObject.getString("status").equals("failed")){
+                            recyclerView.setVisibility(View.GONE);
+                            poorConnectionLayoutRL.setVisibility(View.VISIBLE);
+                            totalpendingpaymentlayout.setVisibility(View.GONE);
+                            getConfirmDialog(DealerPendingPaymentsFragment.this,getString(R.string.emptylist), getString(R.string.loadstoreddata), getString(R.string.yes), getString(R.string.no), false,
+                                    new AlertMagnatic() {
+
+                                        @Override
+                                        public void PositiveMethod(final DialogInterface dialog, final int id) {
+                                            displaydataonLayout();
+                                        }
+
+                                        @Override
+                                        public void NegativeMethod(DialogInterface dialog, int id) {
+                                            recyclerView.setVisibility(View.GONE);
+                                            poorConnectionLayoutRL.setVisibility(View.VISIBLE);
+                                            totalpendingpaymentlayout.setVisibility(View.GONE);
+                                            progressLayoutRL.setVisibility(View.GONE);
+                                        }
+                                    });
+                        }
+                        else if (responseObject.getString("status").equals("datechanged")){
+                            list = new AllDealerPendingPaymentParser().parse(responseObject.getJSONArray("result"));
+                            lastfetcheddate = responseObject.getString("date");
+                            pendingPaymentList = list;
+                            DATE = lastfetcheddate;
+                            final List<DealerPendingPayment> finalList = list;
+                            final String finalLastfetcheddate = lastfetcheddate;
+                            getConfirmDialog(DealerPendingPaymentsFragment.this,getString(R.string.nodataonselecteddate), getString(R.string.loadrecentdata), getString(R.string.yes), getString(R.string.no), false,
+                                    new AlertMagnatic() {
+
+                                        @Override
+                                        public void PositiveMethod(DialogInterface dialog, int id) {
+                                            displayDataNetConnectionOK(finalList, finalLastfetcheddate);
+                                            dateTV.setText("Rcn Stock As on\n\t\t"+changeDateFormat(finalLastfetcheddate));
+                                        }
+
+                                        @Override
+                                        public void NegativeMethod(DialogInterface dialog, int id) {
+                                            recyclerView.setVisibility(View.GONE);
+                                            poorConnectionLayoutRL.setVisibility(View.VISIBLE);
+                                            progressLayoutRL.setVisibility(View.GONE);
+                                            totalpendingpaymentlayout.setVisibility(View.GONE);
+                                        }
+                                    });
                         }
                     }
                 }
@@ -243,39 +311,60 @@ public class DealerPendingPaymentsFragment extends BaseActivity {
                     e.printStackTrace();
                 }
 
-                progressLayoutRL.setVisibility(View.GONE);
-                Log.e("list",list.toString());
-                mAdapter = new AllDealerPendingPaymentAdapter(list,DealerPendingPaymentsFragment.this);
-                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(DealerPendingPaymentsFragment.this.getApplicationContext(),LinearLayoutManager.VERTICAL,false);
-                recyclerView.setLayoutManager(mLayoutManager);
-                recyclerView.setItemAnimator(new DefaultItemAnimator());
-                recyclerView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
-
-                if (list.size() == 0){
-                    totalpendingpaymentlayout.setVisibility(View.GONE);
-                    recyclerView.setVisibility(View.GONE);
-                    poorConnectionLayoutRL.setVisibility(View.VISIBLE);
-                }
-                else{
-                    recyclerView.setVisibility(View.VISIBLE);
-                    poorConnectionLayoutRL.setVisibility(View.GONE);
-                    totalpendingpaymentlayout.setVisibility(View.VISIBLE);
-
-                    //set total pending payment amount
-                    double totalpending = 0;
-                    for (DealerPendingPayment pending : list){
-                        totalpending += pending.getPendingAmount();
-                    }
-                    totalpendingAmountTV.setText(String.valueOf(totalpending));
-                }
 
             }
         }.execute();
 
     }
 
+    private void displayDataNetConnectionOK(List<DealerPendingPayment> list, String lastfetcheddate) {
 
+        progressLayoutRL.setVisibility(View.GONE);
+        Log.e("list",list.toString());
+        mAdapter = new AllDealerPendingPaymentAdapter(list,DealerPendingPaymentsFragment.this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(DealerPendingPaymentsFragment.this.getApplicationContext(),LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+
+        if (list.size() == 0){
+            totalpendingpaymentlayout.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.GONE);
+            poorConnectionLayoutRL.setVisibility(View.VISIBLE);
+        }
+        else {
+            recyclerView.setVisibility(View.VISIBLE);
+            poorConnectionLayoutRL.setVisibility(View.GONE);
+            totalpendingpaymentlayout.setVisibility(View.VISIBLE);
+
+            //set total pending payment amount
+            double totalpending = 0;
+            for (DealerPendingPayment pending : list) {
+                totalpending += pending.getPendingAmount();
+            }
+            totalpendingAmountTV.setText(String.valueOf(totalpending));
+
+            //store the LISTOFDEALERPENDINGPAYMENTS in sqlite DB,
+                                /*
+                                    * first clearAll the previously stored data from the table
+                                    * add all the new fetched items to the table 1
+                                    * add the date to table 2
+                                 */
+
+            //1 - clear all the table1,2 data
+            dataBaseHandler.ClearAll();
+
+            //2 - store new fetched data in the table1
+            for (DealerPendingPayment pendingPayment : list) {
+                dataBaseHandler.addDealerPendingPayment(pendingPayment);
+            }
+
+            //3 - adding date to table 2
+            Log.e("Last fetched date", lastfetcheddate);
+            dataBaseHandler.addLastStoredDate(lastfetcheddate);
+        }
+    }
 
 
     //todays date
@@ -287,6 +376,7 @@ public class DealerPendingPaymentsFragment extends BaseActivity {
         String todaysDate = df.format(c.getTime());
         Log.e("Todays Date",todaysDate);
         selectedDATE = todaysDate;
+        DATE = selectedDATE;
         loadDealerPendingPayments(todaysDate);
     }
 
@@ -364,4 +454,40 @@ public class DealerPendingPaymentsFragment extends BaseActivity {
 
         }
     }
+
+    public void displaydataonLayout(){
+        //handling ok button on click
+        IS_LOADED_FROM_DB = true;
+        if (dataBaseHandler.getDealerPendingPaymentCount() <= 0){
+            Toast.makeText(DealerPendingPaymentsFragment.this,"No Data was Stored..",Toast.LENGTH_LONG).show();
+            recyclerView.setVisibility(View.GONE);
+            poorConnectionLayoutRL.setVisibility(View.VISIBLE);
+            progressLayoutRL.setVisibility(View.GONE);
+        }
+        else{
+            //if data is stored in sqlite
+            List<DealerPendingPayment> dealerPendingPaymentList = new ArrayList<DealerPendingPayment>();
+            dealerPendingPaymentList = dataBaseHandler.getAllPendingPayments();
+            progressLayoutRL.setVisibility(View.GONE);
+            poorConnectionLayoutRL.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+            totalpendingpaymentlayout.setVisibility(View.VISIBLE);
+            mAdapter = new AllDealerPendingPaymentAdapter(dealerPendingPaymentList, DealerPendingPaymentsFragment.this);
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(DealerPendingPaymentsFragment.this.getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+                recyclerView.setLayoutManager(mLayoutManager);
+                recyclerView.setItemAnimator(new DefaultItemAnimator());
+                recyclerView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
+
+                //set total pending payment amount
+                double totalpending = 0;
+                for (DealerPendingPayment pending : dealerPendingPaymentList){
+                    totalpending += pending.getPendingAmount();
+                }
+                totalpendingAmountTV.setText(String.valueOf(totalpending));
+
+                String laststoredDate = dataBaseHandler.getLastStoredDate();
+                dateTV.setText("Payment as on \n\t\t" + changeDateFormat(laststoredDate));
+            }
+        }
 }

@@ -11,8 +11,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="nointernet">No Internet Connection</string>
+    <string name="nodata">No Data</string>
     <string name="emptylist">No data on selected date</string>
     <string name="loadstoreddata">Do you want to load stored data!!</string>
     <string name="yes">Ok</string>
     <string name="no">No</string>
+    <string name="nodataonselecteddate">No Data On Selected Date</string>
+    <string name="loadrecentdata">Do you want to recent Data</string>
 </resources>

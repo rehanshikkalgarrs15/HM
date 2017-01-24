@@ -134,6 +134,10 @@ public class MainActivity extends BaseActivity {
         Year = calendar.get(Calendar.YEAR) ;
         Month = calendar.get(Calendar.MONTH);
         Day = calendar.get(Calendar.DAY_OF_MONTH);
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.HOUR, 0);
 
         //get the navigation header view to show Email Id of LoggedIn user
         View view = navigationView.getHeaderView(0);
@@ -171,9 +175,9 @@ public class MainActivity extends BaseActivity {
                     case R.id.kernalstock:
                         startActivity(new Intent(MainActivity.this,KernalStockFragment.class));
                         break;
-                    case R.id.deakerstock:
+                    /*case R.id.deakerstock:
                         startActivity(new Intent(MainActivity.this,DealerStockFragment.class));
-                        break;
+                        break;*/
                     case R.id.dealerpendingpayments:
                         startActivity(new Intent(MainActivity.this,DealerPendingPaymentsFragment.class));
                         break;
@@ -261,7 +265,7 @@ public class MainActivity extends BaseActivity {
         if (!NetworkUtils.isConnected(MainActivity.this)){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("No Internet Connection");
-            builder.setMessage("Loading Previous Data!!")
+            builder.setMessage("Load stored data!!")
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -336,16 +340,7 @@ public class MainActivity extends BaseActivity {
                 loadingLayoutRL.setVisibility(View.VISIBLE);
 
                 //change date in toolbar
-                SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-DD");
-                SimpleDateFormat format2 = new SimpleDateFormat("dd-MMMM-yyyy");
-                Date date = null;
-                try {
-                    date = format1.parse(selectedDate);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                String dateString = format2.format(date);
-                dateString = dateString.replace("-", " ");
+                String dateString = changeDateFormat(selectedDate);
                 dateTextTV.setText(dateString);
             }
 
@@ -355,13 +350,12 @@ public class MainActivity extends BaseActivity {
             }
 
             @Override
-            protected void onPostExecute(JSONObject response) {
+            protected void onPostExecute(final JSONObject response) {
                 super.onPostExecute(response);
                 try {
                     if (response != null) {
                         if (response.getString("status").equals("success")){
                             FactoryReport factoryReport = new  FactoryReportParser().parse(response.getJSONObject("factoryreport"));
-
                             String lastfetcheddate = response.getString("date");
                             //first clear previous data
                             //add new data
@@ -387,17 +381,60 @@ public class MainActivity extends BaseActivity {
                                         public void PositiveMethod(final DialogInterface dialog, final int id) {
                                             nodataLayoutRL.setVisibility(View.GONE);
                                             factoryReportLayoutLL.setVisibility(View.VISIBLE);
-                                            FactoryReport factoryReport = databaseHandler.getFactoryReport();
-                                            displayDataOnLayout(factoryReport);
-                                            String laststoreddate = databaseHandler.getLastStoredDate();
-                                            dateTextTV.setText("Factory Report As on\n\t\t" + changeDateFormat(laststoreddate));
+                                            if (databaseHandler.getFactoryReportCount() <= 0) {
+                                                factoryReportLayoutLL.setVisibility(View.GONE);
+                                                nodataLayoutRL.setVisibility(View.VISIBLE);
+                                                loadingLayoutRL.setVisibility(View.GONE);
+                                                Toast.makeText(MainActivity.this,"No Data was Stored..",Toast.LENGTH_LONG).show();
+                                            }
+                                            else {
+                                                FactoryReport factoryReport = databaseHandler.getFactoryReport();
+                                                displayDataOnLayout(factoryReport);
+                                                String laststoreddate = databaseHandler.getLastStoredDate();
+                                                dateTextTV.setText("Factory Report As on\n\t\t" + changeDateFormat(laststoreddate));
+                                            }
                                         }
 
                                         @Override
                                         public void NegativeMethod(DialogInterface dialog, int id) {
-                                            Toast.makeText(MainActivity.this,"NO",Toast.LENGTH_LONG).show();
+                                            factoryReportLayoutLL.setVisibility(View.GONE);
+                                            nodataLayoutRL.setVisibility(View.VISIBLE);
+                                            loadingLayoutRL.setVisibility(View.GONE);
                                         }
                                     });
+                        }
+                        else if (response.getString("status").equals("datechanged")){
+                            final FactoryReport factoryReport = new  FactoryReportParser().parse(response.getJSONObject("factoryreport"));
+                            final String lastfetcheddate = response.getString("date");
+                            //if recent date data is available
+                            getConfirmDialog(MainActivity.this,getString(R.string.nodataonselecteddate), getString(R.string.loadrecentdata), getString(R.string.yes), getString(R.string.no), false,
+                                    new AlertMagnatic() {
+
+                                        @Override
+                                        public void PositiveMethod(final DialogInterface dialog, final int id) {
+                                            databaseHandler.ClearAll();
+                                            databaseHandler.addFactoryReport(factoryReport);
+                                            databaseHandler.addLastStoredDate(lastfetcheddate);
+                                            Log.e("FR - Last fetched Date" , lastfetcheddate);
+
+                                            factoryReportLayoutLL.setVisibility(View.VISIBLE);
+                                            nodataLayoutRL.setVisibility(View.GONE);
+                                            loadingLayoutRL.setVisibility(View.GONE);
+                                            //display data on layout
+                                            displayDataOnLayout(factoryReport);
+                                            //change date on toolbar
+                                            String changeddataDate = changeDateFormat(lastfetcheddate);
+                                            dateTextTV.setText("Factory Report as on\n\t\t" + changeddataDate);
+                                        }
+
+                                        @Override
+                                        public void NegativeMethod(DialogInterface dialog, int id) {
+                                            factoryReportLayoutLL.setVisibility(View.GONE);
+                                            nodataLayoutRL.setVisibility(View.VISIBLE);
+                                            loadingLayoutRL.setVisibility(View.GONE);
+                                        }
+                                    });
+
                         }
                     } else {
                         Toast.makeText(MainActivity.this,"Something went wrong",Toast.LENGTH_LONG).show();
